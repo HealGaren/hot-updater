@@ -93,6 +93,36 @@ export const s3Storage = createStoragePlugin<S3StorageConfig>({
           storageUri: `s3://${bucketName}/${Key}`,
         };
       },
+      async list() {
+        const storageUris: string[] = [];
+        let continuationToken: string | undefined;
+
+        do {
+          const command = new ListObjectsV2Command({
+            Bucket: bucketName,
+            ...(config.basePath ? { Prefix: config.basePath } : {}),
+            ...(continuationToken
+              ? { ContinuationToken: continuationToken }
+              : {}),
+          });
+          const response = await client.send(command);
+
+          if (response.Contents) {
+            for (const obj of response.Contents) {
+              if (obj.Key) {
+                storageUris.push(`s3://${bucketName}/${obj.Key}`);
+              }
+            }
+          }
+
+          continuationToken = response.IsTruncated
+            ? response.NextContinuationToken
+            : undefined;
+        } while (continuationToken);
+
+        return storageUris;
+      },
+
       async getDownloadUrl(storageUri: string) {
         // Simple validation: supported protocol must match
         const u = new URL(storageUri);

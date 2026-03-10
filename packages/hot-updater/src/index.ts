@@ -32,6 +32,7 @@ import {
 import { generate } from "./commands/generate";
 import { keysExportPublic, keysGenerate, keysRemove } from "./commands/keys";
 import { migrate } from "./commands/migrate";
+import { storageGc } from "./commands/storageGc";
 
 const DEFAULT_CHANNEL = "production";
 
@@ -231,6 +232,21 @@ dbCommand
       process.exit(0);
     },
   );
+
+// Storage management commands
+const storageCommand = program
+  .command("storage")
+  .description("Storage management commands");
+
+storageCommand
+  .command("gc")
+  .description(
+    "Remove orphaned storage objects not referenced by any bundle in the database",
+  )
+  .option("-y, --yes", "skip confirmation prompt", false)
+  .action(async (options: { yes: boolean }) => {
+    await storageGc(options);
+  });
 
 program
   .command("build:android")

@@ -73,6 +73,13 @@ export const firebaseStorage = createStoragePlugin<FirebaseStorageConfig>({
           throw error;
         }
       },
+      async list() {
+        const [files] = await bucket.getFiles({
+          ...(config.basePath ? { prefix: config.basePath } : {}),
+        });
+        return files.map((file) => `gs://${config.storageBucket}/${file.name}`);
+      },
+
       async getDownloadUrl(storageUri: string) {
         // Simple validation: supported protocol must match
         const u = new URL(storageUri);

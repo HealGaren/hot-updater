@@ -273,6 +273,9 @@ export interface StoragePlugin {
   getDownloadUrl: (storageUri: string) => Promise<{
     fileUrl: string;
   }>;
+
+  list?: () => Promise<string[]>;
+
   name: string;
 }
 

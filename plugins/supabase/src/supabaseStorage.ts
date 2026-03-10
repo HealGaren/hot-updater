@@ -76,6 +76,39 @@ export const supabaseStorage = createStoragePlugin<SupabaseStorageConfig>({
           storageUri: `supabase-storage://${fullPath}`,
         };
       },
+      async list() {
+        const storageUris: string[] = [];
+        const limit = 1000;
+        let offset = 0;
+
+        while (true) {
+          const { data: entries, error } = await bucket.list(
+            config.basePath ?? "",
+            {
+              limit,
+              offset,
+            },
+          );
+
+          if (error) {
+            throw new Error(`Failed to list storage objects: ${error.message}`);
+          }
+          if (!entries || entries.length === 0) break;
+
+          for (const entry of entries) {
+            const key = config.basePath
+              ? `${config.basePath}/${entry.name}`
+              : entry.name;
+            storageUris.push(`supabase-storage://${config.bucketName}/${key}`);
+          }
+
+          if (entries.length < limit) break;
+          offset += limit;
+        }
+
+        return storageUris;
+      },
+
       async getDownloadUrl(storageUri: string) {
         // Simple validation: supported protocol must match
         const u = new URL(storageUri);
