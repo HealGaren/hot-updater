@@ -1,9 +1,11 @@
+import { ListObjectsV2Command, S3Client } from "@aws-sdk/client-s3";
 import {
   createStorageKeyBuilder,
   createStoragePlugin,
   getContentType,
   parseStorageUri,
 } from "@hot-updater/plugin-core";
+import { createHash } from "crypto";
 import { ExecaError } from "execa";
 
 import path from "path";
@@ -54,6 +56,41 @@ export const r2Storage = createStoragePlugin<R2StorageConfig>({
     });
 
     const getStorageKey = createStorageKeyBuilder(config.basePath);
+
+    // Cache S3-compatible credentials derived from the API token
+    // See: https://developers.cloudflare.com/r2/api/tokens/
+    let cachedS3Client: S3Client | null = null;
+    const getS3Client = async () => {
+      if (cachedS3Client) return cachedS3Client;
+
+      const verifyResponse = await fetch(
+        "https://api.cloudflare.com/client/v4/user/tokens/verify",
+        {
+          headers: { Authorization: `Bearer ${cloudflareApiToken}` },
+        },
+      );
+      const verifyData = (await verifyResponse.json()) as {
+        result?: { id?: string };
+        success?: boolean;
+      };
+      if (!verifyData.success || !verifyData.result?.id) {
+        throw new Error(
+          "Failed to verify Cloudflare API token. Ensure your token is valid.",
+        );
+      }
+
+      cachedS3Client = new S3Client({
+        region: "auto",
+        endpoint: `https://${accountId}.r2.cloudflarestorage.com`,
+        credentials: {
+          accessKeyId: verifyData.result.id,
+          secretAccessKey: createHash("sha256")
+            .update(cloudflareApiToken)
+            .digest("hex"),
+        },
+      });
+      return cachedS3Client;
+    };
 
     return {
       async delete(storageUri) {
@@ -109,6 +146,45 @@ export const r2Storage = createStoragePlugin<R2StorageConfig>({
           storageUri: `r2://${bucketName}/${Key}`,
         };
       },
+      async list() {
+        try {
+          const s3Client = await getS3Client();
+
+          const storageUris: string[] = [];
+          let continuationToken: string | undefined;
+
+          do {
+            const command = new ListObjectsV2Command({
+              Bucket: bucketName,
+              ...(config.basePath ? { Prefix: config.basePath } : {}),
+              ...(continuationToken
+                ? { ContinuationToken: continuationToken }
+                : {}),
+            });
+            const response = await s3Client.send(command);
+
+            if (response.Contents) {
+              for (const obj of response.Contents) {
+                if (obj.Key) {
+                  storageUris.push(`r2://${bucketName}/${obj.Key}`);
+                }
+              }
+            }
+
+            continuationToken = response.IsTruncated
+              ? response.NextContinuationToken
+              : undefined;
+          } while (continuationToken);
+
+          return storageUris;
+        } catch (error) {
+          if (error instanceof Error) {
+            throw new Error(`Failed to list R2 objects: ${error.message}`);
+          }
+          throw error;
+        }
+      },
+
       async getDownloadUrl() {
         throw new Error(
           "`r2Storage` does not support `getDownloadUrl()`. Use `s3Storage` from `@hot-updater/aws` instead (compatible with Cloudflare R2).\n\n" +

@@ -73,7 +73,7 @@ export const createStoragePlugin = <TConfig>(
         return cachedMethods;
       };
 
-      return {
+      const plugin: StoragePlugin = {
         name: options.name,
         supportedProtocol: options.supportedProtocol,
 
@@ -91,6 +91,13 @@ export const createStoragePlugin = <TConfig>(
           return getMethods().getDownloadUrl(storageUri);
         },
       };
+
+      const methods = getMethods();
+      if (methods.list) {
+        plugin.list = () => methods.list!();
+      }
+
+      return plugin;
     };
   };
 };
