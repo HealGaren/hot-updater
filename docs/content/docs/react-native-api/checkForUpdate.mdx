@@ -111,6 +111,7 @@ The `checkForUpdate` function accepts the following optional parameters:
 | Parameter         | Type                           | Required | Description                                                                      |
 |-------------------|--------------------------------|----------|----------------------------------------------------------------------------------|
 | `updateStrategy`  | `"appVersion"` \| `"fingerprint"` | ✅        | Override the update strategy set in wrap. If not provided, uses the strategy from `HotUpdater.wrap()`. |
+| `channel`         | `string`                       | ❌        | Override the channel for runtime channel switching. If not provided, uses the current channel. |
 | `requestHeaders`  | `Record<string, string>`       | ❌        | Optional headers to include in the update request.                               |
 | `requestTimeout`  | `number`                       | ❌        | Request timeout in milliseconds (default: 5000).                                 |
 | `onError`         | `(error: Error) => void`       | ❌        | Error callback.                                                                  |

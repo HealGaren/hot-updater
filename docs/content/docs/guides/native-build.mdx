@@ -82,7 +82,8 @@ export default defineConfig({
 | `exportOptionsPlist` | Path to a plist file that specifies options for exporting the archive. | `undefined` |
 | `exportExtraParams` | Additional parameters for `exportArchive`. | `[]` |
 | `xcconfig` | Path to an `.xcconfig` file to include additional build settings. | `undefined` |
-| `installPods` | Automatically install CocoaPods dependencies before building. | `true` |
+| `installPods` | Automatically install CocoaPods dependencies before building. | `false` |
+| `simulator` | Build for simulator instead of device. Only affects `build:ios`, not `run:ios`. | `false` |
 | `extraParams` | Additional parameters passed to `xcodebuild`. | `[]` |
 
 

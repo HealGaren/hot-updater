@@ -76,7 +76,12 @@ export default defineConfig({
 npx hot-updater keys generate [--output ./keys] [--key-size 4096]
 ```
 
-Creates `private-key.pem` (keep secure) and `public-key.pem` in `./keys` directory.
+| Option | Description | Default |
+|--------|-------------|---------|
+| `--output` | Output directory for key files | `./keys` |
+| `--key-size` | RSA key size in bits | `4096` |
+
+Creates `private-key.pem` (keep secure) and `public-key.pem` in the output directory.
 
 ### Export Public Key
 
