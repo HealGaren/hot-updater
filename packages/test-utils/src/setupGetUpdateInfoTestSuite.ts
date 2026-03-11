@@ -51,6 +51,7 @@ export const setupGetUpdateInfoTestSuite = ({
           shouldForceUpdate: false,
           enabled: true,
           id: "00000000-0000-0000-0000-000000000001",
+          originBundleId: "00000000-0000-0000-0000-000000000001",
         },
       ];
 
@@ -88,6 +89,7 @@ export const setupGetUpdateInfoTestSuite = ({
           targetAppVersion: "1.1",
           enabled: true,
           id: "00000000-0000-0000-0000-000000000001",
+          originBundleId: "00000000-0000-0000-0000-000000000001",
           shouldForceUpdate: false,
         },
       ];
@@ -108,6 +110,7 @@ export const setupGetUpdateInfoTestSuite = ({
           targetAppVersion: "1.0.0",
           enabled: true,
           id: "01963024-c131-7971-8725-ab47e232df41",
+          originBundleId: "01963024-c131-7971-8725-ab47e232df41",
           shouldForceUpdate: false,
         },
         {
@@ -115,6 +118,7 @@ export const setupGetUpdateInfoTestSuite = ({
           targetAppVersion: "1.0.1",
           enabled: true,
           id: "01963024-c131-7971-8725-ab47e232df42",
+          originBundleId: "01963024-c131-7971-8725-ab47e232df42",
           shouldForceUpdate: false,
         },
       ];
@@ -135,6 +139,7 @@ export const setupGetUpdateInfoTestSuite = ({
           targetAppVersion: "1.x.x",
           enabled: true,
           id: "00000000-0000-0000-0000-000000000001",
+          originBundleId: "00000000-0000-0000-0000-000000000001",
           shouldForceUpdate: false,
         },
         {
@@ -142,6 +147,7 @@ export const setupGetUpdateInfoTestSuite = ({
           targetAppVersion: "1.0",
           enabled: true,
           id: "00000000-0000-0000-0000-000000000002",
+          originBundleId: "00000000-0000-0000-0000-000000000002",
           shouldForceUpdate: false,
         },
       ];
@@ -167,6 +173,7 @@ export const setupGetUpdateInfoTestSuite = ({
           targetAppVersion: "1.0",
           enabled: true,
           id: "00000000-0000-0000-0000-000000000001",
+          originBundleId: "00000000-0000-0000-0000-000000000001",
           shouldForceUpdate: true,
         },
       ];
@@ -192,6 +199,7 @@ export const setupGetUpdateInfoTestSuite = ({
           targetAppVersion: "1.0",
           enabled: true,
           id: "00000000-0000-0000-0000-000000000001",
+          originBundleId: "00000000-0000-0000-0000-000000000001",
           shouldForceUpdate: false,
         },
       ];
@@ -218,6 +226,7 @@ export const setupGetUpdateInfoTestSuite = ({
           shouldForceUpdate: false,
           enabled: true,
           id: "00000000-0000-0000-0000-000000000005",
+          originBundleId: "00000000-0000-0000-0000-000000000005",
         },
       ];
 
@@ -243,6 +252,7 @@ export const setupGetUpdateInfoTestSuite = ({
           shouldForceUpdate: true,
           enabled: false, // Disabled
           id: "00000000-0000-0000-0000-000000000002",
+          originBundleId: "00000000-0000-0000-0000-000000000002",
         },
         {
           ...DEFAULT_BUNDLE_APP_VERSION_STRATEGY,
@@ -250,6 +260,7 @@ export const setupGetUpdateInfoTestSuite = ({
           shouldForceUpdate: false,
           enabled: true,
           id: "00000000-0000-0000-0000-000000000001",
+          originBundleId: "00000000-0000-0000-0000-000000000001",
         },
       ];
 
@@ -275,6 +286,7 @@ export const setupGetUpdateInfoTestSuite = ({
           shouldForceUpdate: true,
           enabled: false, // Disabled
           id: "00000000-0000-0000-0000-000000000002",
+          originBundleId: "00000000-0000-0000-0000-000000000002",
         },
         {
           ...DEFAULT_BUNDLE_APP_VERSION_STRATEGY,
@@ -282,6 +294,7 @@ export const setupGetUpdateInfoTestSuite = ({
           shouldForceUpdate: false,
           enabled: false, // Disabled
           id: "00000000-0000-0000-0000-000000000001",
+          originBundleId: "00000000-0000-0000-0000-000000000001",
         },
       ];
 
@@ -302,6 +315,7 @@ export const setupGetUpdateInfoTestSuite = ({
           shouldForceUpdate: true,
           enabled: false, // Disabled
           id: "00000000-0000-0000-0000-000000000002",
+          originBundleId: "00000000-0000-0000-0000-000000000002",
         },
         {
           ...DEFAULT_BUNDLE_APP_VERSION_STRATEGY,
@@ -309,6 +323,7 @@ export const setupGetUpdateInfoTestSuite = ({
           shouldForceUpdate: false,
           enabled: false, // Disabled
           id: "00000000-0000-0000-0000-000000000001",
+          originBundleId: "00000000-0000-0000-0000-000000000001",
         },
       ];
 
@@ -331,6 +346,7 @@ export const setupGetUpdateInfoTestSuite = ({
           message: "hi",
           targetAppVersion: "1.0",
           id: "00000000-0000-0000-0000-000000000001",
+          originBundleId: "00000000-0000-0000-0000-000000000001",
           enabled: true,
         },
       ];
@@ -369,6 +385,7 @@ export const setupGetUpdateInfoTestSuite = ({
           shouldForceUpdate: false,
           enabled: true,
           id: "00000000-0000-0000-0000-000000000002",
+          originBundleId: "00000000-0000-0000-0000-000000000002",
         },
         {
           ...DEFAULT_BUNDLE_APP_VERSION_STRATEGY,
@@ -376,6 +393,7 @@ export const setupGetUpdateInfoTestSuite = ({
           shouldForceUpdate: false,
           enabled: true,
           id: "00000000-0000-0000-0000-000000000001",
+          originBundleId: "00000000-0000-0000-0000-000000000001",
         },
       ];
 
@@ -396,6 +414,7 @@ export const setupGetUpdateInfoTestSuite = ({
           shouldForceUpdate: false,
           enabled: true,
           id: "00000000-0000-0000-0000-000000000001",
+          originBundleId: "00000000-0000-0000-0000-000000000001",
         },
       ];
 
@@ -421,6 +440,7 @@ export const setupGetUpdateInfoTestSuite = ({
           shouldForceUpdate: false,
           enabled: true,
           id: "00000000-0000-0000-0000-000000000003",
+          originBundleId: "00000000-0000-0000-0000-000000000003",
         },
         {
           ...DEFAULT_BUNDLE_APP_VERSION_STRATEGY,
@@ -428,6 +448,7 @@ export const setupGetUpdateInfoTestSuite = ({
           shouldForceUpdate: false,
           enabled: true,
           id: "00000000-0000-0000-0000-000000000002",
+          originBundleId: "00000000-0000-0000-0000-000000000002",
         },
         {
           ...DEFAULT_BUNDLE_APP_VERSION_STRATEGY,
@@ -435,6 +456,7 @@ export const setupGetUpdateInfoTestSuite = ({
           shouldForceUpdate: false,
           enabled: true,
           id: "00000000-0000-0000-0000-000000000001",
+          originBundleId: "00000000-0000-0000-0000-000000000001",
         },
       ];
 
@@ -460,6 +482,7 @@ export const setupGetUpdateInfoTestSuite = ({
           shouldForceUpdate: false,
           enabled: true,
           id: "00000000-0000-0000-0000-000000000005", // Higher than the current version
+          originBundleId: "00000000-0000-0000-0000-000000000005",
         },
         {
           ...DEFAULT_BUNDLE_APP_VERSION_STRATEGY,
@@ -467,6 +490,7 @@ export const setupGetUpdateInfoTestSuite = ({
           shouldForceUpdate: false,
           enabled: true,
           id: "00000000-0000-0000-0000-000000000004",
+          originBundleId: "00000000-0000-0000-0000-000000000004",
         },
         {
           ...DEFAULT_BUNDLE_APP_VERSION_STRATEGY,
@@ -475,6 +499,7 @@ export const setupGetUpdateInfoTestSuite = ({
           shouldForceUpdate: false,
           enabled: true,
           id: "00000000-0000-0000-0000-000000000003",
+          originBundleId: "00000000-0000-0000-0000-000000000003",
         },
         {
           ...DEFAULT_BUNDLE_APP_VERSION_STRATEGY,
@@ -482,6 +507,7 @@ export const setupGetUpdateInfoTestSuite = ({
           shouldForceUpdate: false,
           enabled: true,
           id: "00000000-0000-0000-0000-000000000002",
+          originBundleId: "00000000-0000-0000-0000-000000000002",
         },
         {
           ...DEFAULT_BUNDLE_APP_VERSION_STRATEGY,
@@ -489,6 +515,7 @@ export const setupGetUpdateInfoTestSuite = ({
           shouldForceUpdate: false,
           enabled: true,
           id: "00000000-0000-0000-0000-000000000001",
+          originBundleId: "00000000-0000-0000-0000-000000000001",
         },
       ];
 
@@ -514,6 +541,7 @@ export const setupGetUpdateInfoTestSuite = ({
           shouldForceUpdate: true,
           enabled: false, // Disabled
           id: "00000000-0000-0000-0000-000000000003",
+          originBundleId: "00000000-0000-0000-0000-000000000003",
         },
         {
           ...DEFAULT_BUNDLE_APP_VERSION_STRATEGY,
@@ -521,6 +549,7 @@ export const setupGetUpdateInfoTestSuite = ({
           shouldForceUpdate: true,
           enabled: true,
           id: "00000000-0000-0000-0000-000000000002",
+          originBundleId: "00000000-0000-0000-0000-000000000002",
         },
         {
           ...DEFAULT_BUNDLE_APP_VERSION_STRATEGY,
@@ -528,6 +557,7 @@ export const setupGetUpdateInfoTestSuite = ({
           shouldForceUpdate: false,
           enabled: true,
           id: "00000000-0000-0000-0000-000000000001",
+          originBundleId: "00000000-0000-0000-0000-000000000001",
         },
       ];
 
@@ -548,6 +578,7 @@ export const setupGetUpdateInfoTestSuite = ({
           shouldForceUpdate: true,
           enabled: false, // Disabled
           id: "00000000-0000-0000-0000-000000000002",
+          originBundleId: "00000000-0000-0000-0000-000000000002",
         },
         {
           ...DEFAULT_BUNDLE_APP_VERSION_STRATEGY,
@@ -555,6 +586,7 @@ export const setupGetUpdateInfoTestSuite = ({
           shouldForceUpdate: false,
           enabled: true,
           id: "00000000-0000-0000-0000-000000000001",
+          originBundleId: "00000000-0000-0000-0000-000000000001",
         },
       ];
 
@@ -581,6 +613,7 @@ export const setupGetUpdateInfoTestSuite = ({
           shouldForceUpdate: true,
           enabled: false, // Disabled
           id: "00000000-0000-0000-0000-000000000002",
+          originBundleId: "00000000-0000-0000-0000-000000000002",
         },
         {
           ...DEFAULT_BUNDLE_APP_VERSION_STRATEGY,
@@ -588,6 +621,7 @@ export const setupGetUpdateInfoTestSuite = ({
           shouldForceUpdate: false,
           enabled: false, // Disabled
           id: "00000000-0000-0000-0000-000000000001",
+          originBundleId: "00000000-0000-0000-0000-000000000001",
         },
       ];
 
@@ -608,6 +642,7 @@ export const setupGetUpdateInfoTestSuite = ({
           shouldForceUpdate: false,
           enabled: true,
           id: "0195715a-ce29-7c55-97d3-53af4fe369b7", // 2025-03-07T16:05:31.305Z
+          originBundleId: "0195715a-ce29-7c55-97d3-53af4fe369b7",
         },
       ];
 
@@ -629,6 +664,7 @@ export const setupGetUpdateInfoTestSuite = ({
           shouldForceUpdate: false,
           enabled: true,
           id: "0195715d-42db-7475-9204-31819efc2f1d", // 2025-03-07T16:08:12.251Z
+          originBundleId: "0195715d-42db-7475-9204-31819efc2f1d",
         },
         {
           ...DEFAULT_BUNDLE_APP_VERSION_STRATEGY,
@@ -636,6 +672,7 @@ export const setupGetUpdateInfoTestSuite = ({
           shouldForceUpdate: false,
           enabled: true,
           id: "0195715a-ce29-7c55-97d3-53af4fe369b7", // 2025-03-07T16:05:31.305Z
+          originBundleId: "0195715a-ce29-7c55-97d3-53af4fe369b7",
         },
       ];
 
@@ -662,6 +699,7 @@ export const setupGetUpdateInfoTestSuite = ({
           shouldForceUpdate: false,
           enabled: false, // disabled
           id: "0195715d-42db-7475-9204-31819efc2f1d", // 2025-03-07T16:08:12.251Z
+          originBundleId: "0195715d-42db-7475-9204-31819efc2f1d",
         },
         {
           ...DEFAULT_BUNDLE_APP_VERSION_STRATEGY,
@@ -669,6 +707,7 @@ export const setupGetUpdateInfoTestSuite = ({
           shouldForceUpdate: false,
           enabled: true,
           id: "0195715a-ce29-7c55-97d3-53af4fe369b7", // 2025-03-07T16:05:31.305Z
+          originBundleId: "0195715a-ce29-7c55-97d3-53af4fe369b7",
         },
       ];
 
@@ -690,6 +729,7 @@ export const setupGetUpdateInfoTestSuite = ({
           shouldForceUpdate: false,
           enabled: true,
           id: "0195715a-ce29-7c55-97d3-53af4fe369b7", // 2025-03-07T16:05:31.305Z
+          originBundleId: "0195715a-ce29-7c55-97d3-53af4fe369b7",
         },
       ];
 
@@ -711,6 +751,7 @@ export const setupGetUpdateInfoTestSuite = ({
           shouldForceUpdate: false,
           enabled: true, // disabled
           id: "0195715d-42db-7475-9204-31819efc2f1d", // 2025-03-07T16:08:12.251Z
+          originBundleId: "0195715d-42db-7475-9204-31819efc2f1d",
         },
         {
           ...DEFAULT_BUNDLE_APP_VERSION_STRATEGY,
@@ -718,6 +759,7 @@ export const setupGetUpdateInfoTestSuite = ({
           shouldForceUpdate: false,
           enabled: true,
           id: "0195715a-ce29-7c55-97d3-53af4fe369b7", // 2025-03-07T16:05:31.305Z
+          originBundleId: "0195715a-ce29-7c55-97d3-53af4fe369b7",
         },
       ];
 
@@ -739,6 +781,7 @@ export const setupGetUpdateInfoTestSuite = ({
           shouldForceUpdate: false,
           enabled: true,
           id: "01957165-bee7-7df3-a25d-6686f01b02ba", //2025-03-07T16:17:28.295Z
+          originBundleId: "01957165-bee7-7df3-a25d-6686f01b02ba",
         },
         {
           ...DEFAULT_BUNDLE_APP_VERSION_STRATEGY,
@@ -746,6 +789,7 @@ export const setupGetUpdateInfoTestSuite = ({
           shouldForceUpdate: false,
           enabled: true,
           id: "01957165-19fb-75af-a361-131c17a65ef2", // 2025-03-07T16:16:46.075Z
+          originBundleId: "01957165-19fb-75af-a361-131c17a65ef2",
         },
         {
           ...DEFAULT_BUNDLE_APP_VERSION_STRATEGY,
@@ -753,6 +797,7 @@ export const setupGetUpdateInfoTestSuite = ({
           shouldForceUpdate: false,
           enabled: true,
           id: "01957164-fbc6-785f-98ce-a6ae459f6e4f", // 2025-03-07T16:16:38.342Z
+          originBundleId: "01957164-fbc6-785f-98ce-a6ae459f6e4f",
         },
       ];
 
@@ -774,6 +819,7 @@ export const setupGetUpdateInfoTestSuite = ({
           shouldForceUpdate: false,
           enabled: true,
           id: "0195716c-82f5-7e5e-ac8c-d4fbf5bc7555", // 2025-03-07T16:24:51.701Z
+          originBundleId: "0195716c-82f5-7e5e-ac8c-d4fbf5bc7555",
         },
         {
           ...DEFAULT_BUNDLE_APP_VERSION_STRATEGY,
@@ -781,6 +827,7 @@ export const setupGetUpdateInfoTestSuite = ({
           shouldForceUpdate: false,
           enabled: true,
           id: "01957167-0389-7064-8d86-f8af7950daed", // 2025-03-07T16:18:51.401Z
+          originBundleId: "01957167-0389-7064-8d86-f8af7950daed",
         },
         {
           ...DEFAULT_BUNDLE_APP_VERSION_STRATEGY,
@@ -788,6 +835,7 @@ export const setupGetUpdateInfoTestSuite = ({
           shouldForceUpdate: false,
           enabled: true,
           id: "01957165-bee7-7df3-a25d-6686f01b02ba", //2025-03-07T16:17:28.295Z
+          originBundleId: "01957165-bee7-7df3-a25d-6686f01b02ba",
         },
         {
           ...DEFAULT_BUNDLE_APP_VERSION_STRATEGY,
@@ -795,6 +843,7 @@ export const setupGetUpdateInfoTestSuite = ({
           shouldForceUpdate: false,
           enabled: true,
           id: "01957165-19fb-75af-a361-131c17a65ef2", // 2025-03-07T16:16:46.075Z
+          originBundleId: "01957165-19fb-75af-a361-131c17a65ef2",
         },
         {
           ...DEFAULT_BUNDLE_APP_VERSION_STRATEGY,
@@ -802,6 +851,7 @@ export const setupGetUpdateInfoTestSuite = ({
           shouldForceUpdate: false,
           enabled: true,
           id: "01957164-fbc6-785f-98ce-a6ae459f6e4f", // 2025-03-07T16:16:38.342Z
+          originBundleId: "01957164-fbc6-785f-98ce-a6ae459f6e4f",
         },
       ];
 
@@ -828,6 +878,7 @@ export const setupGetUpdateInfoTestSuite = ({
           shouldForceUpdate: false,
           enabled: true,
           id: "01957179-d99d-7fbb-bc1e-feff6b3236f0", // only available bundle, equal to minBundleId
+          originBundleId: "01957179-d99d-7fbb-bc1e-feff6b3236f0",
         },
       ];
 
@@ -850,6 +901,7 @@ export const setupGetUpdateInfoTestSuite = ({
           enabled: true,
           channel: "beta",
           id: "00000000-0000-0000-0000-000000000001",
+          originBundleId: "00000000-0000-0000-0000-000000000001",
         },
       ];
 
@@ -873,6 +925,7 @@ export const setupGetUpdateInfoTestSuite = ({
           enabled: true,
           channel: "beta",
           id: "00000000-0000-0000-0000-000000000001",
+          originBundleId: "00000000-0000-0000-0000-000000000001",
         },
       ];
 
@@ -900,6 +953,7 @@ export const setupGetUpdateInfoTestSuite = ({
           shouldForceUpdate: false,
           targetAppVersion: "1.0",
           id: "01957b63-7d11-7281-b8e7-1120ccfdb8ab",
+          originBundleId: "01957b63-7d11-7281-b8e7-1120ccfdb8ab",
         },
       ];
 
@@ -937,6 +991,7 @@ export const setupGetUpdateInfoTestSuite = ({
           enabled: true,
           shouldForceUpdate: true,
           id: "01963024-c131-7971-8725-ab47e232df40",
+          originBundleId: "01963024-c131-7971-8725-ab47e232df40",
           platform: "ios",
           targetAppVersion: "1.0.0",
         },
@@ -966,6 +1021,7 @@ export const setupGetUpdateInfoTestSuite = ({
           targetAppVersion: ">= 5.7.0 <= 5.7.4",
           enabled: true,
           id: "00000000-0000-0000-0000-000000000001",
+          originBundleId: "00000000-0000-0000-0000-000000000001",
           shouldForceUpdate: false,
         },
       ];
@@ -992,6 +1048,7 @@ export const setupGetUpdateInfoTestSuite = ({
           targetAppVersion: ">= 5.7.0 <= 5.7.4",
           enabled: true,
           id: "00000000-0000-0000-0000-000000000001",
+          originBundleId: "00000000-0000-0000-0000-000000000001",
           shouldForceUpdate: false,
         },
       ];
@@ -1027,6 +1084,7 @@ export const setupGetUpdateInfoTestSuite = ({
           fingerprintHash: "hash2",
           enabled: true,
           id: "00000000-0000-0000-0000-000000000001",
+          originBundleId: "00000000-0000-0000-0000-000000000001",
           shouldForceUpdate: false,
         },
       ];
@@ -1047,6 +1105,7 @@ export const setupGetUpdateInfoTestSuite = ({
           fingerprintHash: "hash1",
           enabled: true,
           id: "01963024-c131-7971-8725-ab47e232df41",
+          originBundleId: "01963024-c131-7971-8725-ab47e232df41",
           shouldForceUpdate: false,
         },
         {
@@ -1054,6 +1113,7 @@ export const setupGetUpdateInfoTestSuite = ({
           fingerprintHash: "hash2",
           enabled: true,
           id: "01963024-c131-7971-8725-ab47e232df42",
+          originBundleId: "01963024-c131-7971-8725-ab47e232df42",
           shouldForceUpdate: false,
         },
       ];
@@ -1074,6 +1134,7 @@ export const setupGetUpdateInfoTestSuite = ({
           fingerprintHash: "hash1",
           enabled: true,
           id: "00000000-0000-0000-0000-000000000001",
+          originBundleId: "00000000-0000-0000-0000-000000000001",
           shouldForceUpdate: false,
         },
         {
@@ -1081,6 +1142,7 @@ export const setupGetUpdateInfoTestSuite = ({
           fingerprintHash: "hash2",
           enabled: true,
           id: "00000000-0000-0000-0000-000000000002",
+          originBundleId: "00000000-0000-0000-0000-000000000002",
           shouldForceUpdate: false,
         },
       ];
@@ -1106,6 +1168,7 @@ export const setupGetUpdateInfoTestSuite = ({
           fingerprintHash: "hash1",
           enabled: true,
           id: "00000000-0000-0000-0000-000000000001",
+          originBundleId: "00000000-0000-0000-0000-000000000001",
           shouldForceUpdate: true,
         },
       ];
@@ -1131,6 +1194,7 @@ export const setupGetUpdateInfoTestSuite = ({
           fingerprintHash: "hash1",
           enabled: true,
           id: "00000000-0000-0000-0000-000000000001",
+          originBundleId: "00000000-0000-0000-0000-000000000001",
           shouldForceUpdate: false,
         },
       ];
@@ -1157,6 +1221,7 @@ export const setupGetUpdateInfoTestSuite = ({
           shouldForceUpdate: false,
           enabled: true,
           id: "00000000-0000-0000-0000-000000000005",
+          originBundleId: "00000000-0000-0000-0000-000000000005",
         },
       ];
 
@@ -1182,6 +1247,7 @@ export const setupGetUpdateInfoTestSuite = ({
           shouldForceUpdate: true,
           enabled: false, // Disabled
           id: "00000000-0000-0000-0000-000000000002",
+          originBundleId: "00000000-0000-0000-0000-000000000002",
         },
         {
           ...DEFAULT_BUNDLE_FINGERPRINT_STRATEGY,
@@ -1189,6 +1255,7 @@ export const setupGetUpdateInfoTestSuite = ({
           shouldForceUpdate: false,
           enabled: true,
           id: "00000000-0000-0000-0000-000000000001",
+          originBundleId: "00000000-0000-0000-0000-000000000001",
         },
       ];
 
@@ -1214,6 +1281,7 @@ export const setupGetUpdateInfoTestSuite = ({
           shouldForceUpdate: true,
           enabled: false, // Disabled
           id: "00000000-0000-0000-0000-000000000002",
+          originBundleId: "00000000-0000-0000-0000-000000000002",
         },
         {
           ...DEFAULT_BUNDLE_FINGERPRINT_STRATEGY,
@@ -1221,6 +1289,7 @@ export const setupGetUpdateInfoTestSuite = ({
           shouldForceUpdate: false,
           enabled: false, // Disabled
           id: "00000000-0000-0000-0000-000000000001",
+          originBundleId: "00000000-0000-0000-0000-000000000001",
         },
       ];
 
@@ -1241,6 +1310,7 @@ export const setupGetUpdateInfoTestSuite = ({
           shouldForceUpdate: true,
           enabled: false, // Disabled
           id: "00000000-0000-0000-0000-000000000002",
+          originBundleId: "00000000-0000-0000-0000-000000000002",
         },
         {
           ...DEFAULT_BUNDLE_FINGERPRINT_STRATEGY,
@@ -1248,6 +1318,7 @@ export const setupGetUpdateInfoTestSuite = ({
           shouldForceUpdate: false,
           enabled: false, // Disabled
           id: "00000000-0000-0000-0000-000000000001",
+          originBundleId: "00000000-0000-0000-0000-000000000001",
         },
       ];
 
@@ -1270,6 +1341,7 @@ export const setupGetUpdateInfoTestSuite = ({
           message: "hi",
           fingerprintHash: "hash1",
           id: "00000000-0000-0000-0000-000000000001",
+          originBundleId: "00000000-0000-0000-0000-000000000001",
           enabled: true,
         },
       ];
@@ -1308,6 +1380,7 @@ export const setupGetUpdateInfoTestSuite = ({
           shouldForceUpdate: false,
           enabled: true,
           id: "00000000-0000-0000-0000-000000000002",
+          originBundleId: "00000000-0000-0000-0000-000000000002",
         },
         {
           ...DEFAULT_BUNDLE_FINGERPRINT_STRATEGY,
@@ -1315,6 +1388,7 @@ export const setupGetUpdateInfoTestSuite = ({
           shouldForceUpdate: false,
           enabled: true,
           id: "00000000-0000-0000-0000-000000000001",
+          originBundleId: "00000000-0000-0000-0000-000000000001",
         },
       ];
 
@@ -1335,6 +1409,7 @@ export const setupGetUpdateInfoTestSuite = ({
           shouldForceUpdate: false,
           enabled: true,
           id: "00000000-0000-0000-0000-000000000001",
+          originBundleId: "00000000-0000-0000-0000-000000000001",
         },
       ];
 
@@ -1360,6 +1435,7 @@ export const setupGetUpdateInfoTestSuite = ({
           shouldForceUpdate: false,
           enabled: true,
           id: "00000000-0000-0000-0000-000000000003",
+          originBundleId: "00000000-0000-0000-0000-000000000003",
         },
         {
           ...DEFAULT_BUNDLE_FINGERPRINT_STRATEGY,
@@ -1367,6 +1443,7 @@ export const setupGetUpdateInfoTestSuite = ({
           shouldForceUpdate: false,
           enabled: true,
           id: "00000000-0000-0000-0000-000000000002",
+          originBundleId: "00000000-0000-0000-0000-000000000002",
         },
         {
           ...DEFAULT_BUNDLE_FINGERPRINT_STRATEGY,
@@ -1374,6 +1451,7 @@ export const setupGetUpdateInfoTestSuite = ({
           shouldForceUpdate: false,
           enabled: true,
           id: "00000000-0000-0000-0000-000000000001",
+          originBundleId: "00000000-0000-0000-0000-000000000001",
         },
       ];
 
@@ -1399,6 +1477,7 @@ export const setupGetUpdateInfoTestSuite = ({
           shouldForceUpdate: false,
           enabled: true,
           id: "00000000-0000-0000-0000-000000000005", // Higher than the current version
+          originBundleId: "00000000-0000-0000-0000-000000000005",
         },
         {
           ...DEFAULT_BUNDLE_FINGERPRINT_STRATEGY,
@@ -1406,6 +1485,7 @@ export const setupGetUpdateInfoTestSuite = ({
           shouldForceUpdate: false,
           enabled: true,
           id: "00000000-0000-0000-0000-000000000004",
+          originBundleId: "00000000-0000-0000-0000-000000000004",
         },
         {
           ...DEFAULT_BUNDLE_FINGERPRINT_STRATEGY,
@@ -1413,6 +1493,7 @@ export const setupGetUpdateInfoTestSuite = ({
           shouldForceUpdate: false,
           enabled: true,
           id: "00000000-0000-0000-0000-000000000003",
+          originBundleId: "00000000-0000-0000-0000-000000000003",
         },
         {
           ...DEFAULT_BUNDLE_FINGERPRINT_STRATEGY,
@@ -1420,6 +1501,7 @@ export const setupGetUpdateInfoTestSuite = ({
           shouldForceUpdate: false,
           enabled: true,
           id: "00000000-0000-0000-0000-000000000002",
+          originBundleId: "00000000-0000-0000-0000-000000000002",
         },
         {
           ...DEFAULT_BUNDLE_FINGERPRINT_STRATEGY,
@@ -1427,6 +1509,7 @@ export const setupGetUpdateInfoTestSuite = ({
           shouldForceUpdate: false,
           enabled: true,
           id: "00000000-0000-0000-0000-000000000001",
+          originBundleId: "00000000-0000-0000-0000-000000000001",
         },
       ];
 
@@ -1452,6 +1535,7 @@ export const setupGetUpdateInfoTestSuite = ({
           shouldForceUpdate: true,
           enabled: false, // Disabled
           id: "00000000-0000-0000-0000-000000000003",
+          originBundleId: "00000000-0000-0000-0000-000000000003",
         },
         {
           ...DEFAULT_BUNDLE_FINGERPRINT_STRATEGY,
@@ -1459,6 +1543,7 @@ export const setupGetUpdateInfoTestSuite = ({
           shouldForceUpdate: true,
           enabled: true,
           id: "00000000-0000-0000-0000-000000000002",
+          originBundleId: "00000000-0000-0000-0000-000000000002",
         },
         {
           ...DEFAULT_BUNDLE_FINGERPRINT_STRATEGY,
@@ -1466,6 +1551,7 @@ export const setupGetUpdateInfoTestSuite = ({
           shouldForceUpdate: false,
           enabled: true,
           id: "00000000-0000-0000-0000-000000000001",
+          originBundleId: "00000000-0000-0000-0000-000000000001",
         },
       ];
 
@@ -1486,6 +1572,7 @@ export const setupGetUpdateInfoTestSuite = ({
           shouldForceUpdate: true,
           enabled: false, // Disabled
           id: "00000000-0000-0000-0000-000000000002",
+          originBundleId: "00000000-0000-0000-0000-000000000002",
         },
         {
           ...DEFAULT_BUNDLE_FINGERPRINT_STRATEGY,
@@ -1493,6 +1580,7 @@ export const setupGetUpdateInfoTestSuite = ({
           shouldForceUpdate: false,
           enabled: true,
           id: "00000000-0000-0000-0000-000000000001",
+          originBundleId: "00000000-0000-0000-0000-000000000001",
         },
       ];
 
@@ -1519,6 +1607,7 @@ export const setupGetUpdateInfoTestSuite = ({
           shouldForceUpdate: true,
           enabled: false, // Disabled
           id: "00000000-0000-0000-0000-000000000002",
+          originBundleId: "00000000-0000-0000-0000-000000000002",
         },
         {
           ...DEFAULT_BUNDLE_FINGERPRINT_STRATEGY,
@@ -1526,6 +1615,7 @@ export const setupGetUpdateInfoTestSuite = ({
           shouldForceUpdate: false,
           enabled: false, // Disabled
           id: "00000000-0000-0000-0000-000000000001",
+          originBundleId: "00000000-0000-0000-0000-000000000001",
         },
       ];
 
@@ -1546,6 +1636,7 @@ export const setupGetUpdateInfoTestSuite = ({
           shouldForceUpdate: false,
           enabled: true,
           id: "0195715a-ce29-7c55-97d3-53af4fe369b7", // 2025-03-07T16:05:31.305Z
+          originBundleId: "0195715a-ce29-7c55-97d3-53af4fe369b7",
         },
       ];
 
@@ -1567,6 +1658,7 @@ export const setupGetUpdateInfoTestSuite = ({
           shouldForceUpdate: false,
           enabled: true,
           id: "0195715d-42db-7475-9204-31819efc2f1d", // 2025-03-07T16:08:12.251Z
+          originBundleId: "0195715d-42db-7475-9204-31819efc2f1d",
         },
         {
           ...DEFAULT_BUNDLE_FINGERPRINT_STRATEGY,
@@ -1574,6 +1666,7 @@ export const setupGetUpdateInfoTestSuite = ({
           shouldForceUpdate: false,
           enabled: true,
           id: "0195715a-ce29-7c55-97d3-53af4fe369b7", // 2025-03-07T16:05:31.305Z
+          originBundleId: "0195715a-ce29-7c55-97d3-53af4fe369b7",
         },
       ];
 
@@ -1600,6 +1693,7 @@ export const setupGetUpdateInfoTestSuite = ({
           shouldForceUpdate: false,
           enabled: false, // disabled
           id: "0195715d-42db-7475-9204-31819efc2f1d", // 2025-03-07T16:08:12.251Z
+          originBundleId: "0195715d-42db-7475-9204-31819efc2f1d",
         },
         {
           ...DEFAULT_BUNDLE_FINGERPRINT_STRATEGY,
@@ -1607,6 +1701,7 @@ export const setupGetUpdateInfoTestSuite = ({
           shouldForceUpdate: false,
           enabled: true,
           id: "0195715a-ce29-7c55-97d3-53af4fe369b7", // 2025-03-07T16:05:31.305Z
+          originBundleId: "0195715a-ce29-7c55-97d3-53af4fe369b7",
         },
       ];
 
@@ -1628,6 +1723,7 @@ export const setupGetUpdateInfoTestSuite = ({
           shouldForceUpdate: false,
           enabled: true,
           id: "0195715a-ce29-7c55-97d3-53af4fe369b7", // 2025-03-07T16:05:31.305Z
+          originBundleId: "0195715a-ce29-7c55-97d3-53af4fe369b7",
         },
       ];
 
@@ -1649,6 +1745,7 @@ export const setupGetUpdateInfoTestSuite = ({
           shouldForceUpdate: false,
           enabled: true, // disabled
           id: "0195715d-42db-7475-9204-31819efc2f1d", // 2025-03-07T16:08:12.251Z
+          originBundleId: "0195715d-42db-7475-9204-31819efc2f1d",
         },
         {
           ...DEFAULT_BUNDLE_FINGERPRINT_STRATEGY,
@@ -1656,6 +1753,7 @@ export const setupGetUpdateInfoTestSuite = ({
           shouldForceUpdate: false,
           enabled: true,
           id: "0195715a-ce29-7c55-97d3-53af4fe369b7", // 2025-03-07T16:05:31.305Z
+          originBundleId: "0195715a-ce29-7c55-97d3-53af4fe369b7",
         },
       ];
 
@@ -1677,6 +1775,7 @@ export const setupGetUpdateInfoTestSuite = ({
           shouldForceUpdate: false,
           enabled: true,
           id: "01957165-bee7-7df3-a25d-6686f01b02ba", //2025-03-07T16:17:28.295Z
+          originBundleId: "01957165-bee7-7df3-a25d-6686f01b02ba",
         },
         {
           ...DEFAULT_BUNDLE_FINGERPRINT_STRATEGY,
@@ -1684,6 +1783,7 @@ export const setupGetUpdateInfoTestSuite = ({
           shouldForceUpdate: false,
           enabled: true,
           id: "01957165-19fb-75af-a361-131c17a65ef2", // 2025-03-07T16:16:46.075Z
+          originBundleId: "01957165-19fb-75af-a361-131c17a65ef2",
         },
         {
           ...DEFAULT_BUNDLE_FINGERPRINT_STRATEGY,
@@ -1691,6 +1791,7 @@ export const setupGetUpdateInfoTestSuite = ({
           shouldForceUpdate: false,
           enabled: true,
           id: "01957164-fbc6-785f-98ce-a6ae459f6e4f", // 2025-03-07T16:16:38.342Z
+          originBundleId: "01957164-fbc6-785f-98ce-a6ae459f6e4f",
         },
       ];
 
@@ -1712,6 +1813,7 @@ export const setupGetUpdateInfoTestSuite = ({
           shouldForceUpdate: false,
           enabled: true,
           id: "0195716c-82f5-7e5e-ac8c-d4fbf5bc7555", // 2025-03-07T16:24:51.701Z
+          originBundleId: "0195716c-82f5-7e5e-ac8c-d4fbf5bc7555",
         },
         {
           ...DEFAULT_BUNDLE_FINGERPRINT_STRATEGY,
@@ -1719,6 +1821,7 @@ export const setupGetUpdateInfoTestSuite = ({
           shouldForceUpdate: false,
           enabled: true,
           id: "01957167-0389-7064-8d86-f8af7950daed", // 2025-03-07T16:18:51.401Z
+          originBundleId: "01957167-0389-7064-8d86-f8af7950daed",
         },
         {
           ...DEFAULT_BUNDLE_FINGERPRINT_STRATEGY,
@@ -1726,6 +1829,7 @@ export const setupGetUpdateInfoTestSuite = ({
           shouldForceUpdate: false,
           enabled: true,
           id: "01957165-bee7-7df3-a25d-6686f01b02ba", //2025-03-07T16:17:28.295Z
+          originBundleId: "01957165-bee7-7df3-a25d-6686f01b02ba",
         },
         {
           ...DEFAULT_BUNDLE_FINGERPRINT_STRATEGY,
@@ -1733,6 +1837,7 @@ export const setupGetUpdateInfoTestSuite = ({
           shouldForceUpdate: false,
           enabled: true,
           id: "01957165-19fb-75af-a361-131c17a65ef2", // 2025-03-07T16:16:46.075Z
+          originBundleId: "01957165-19fb-75af-a361-131c17a65ef2",
         },
         {
           ...DEFAULT_BUNDLE_FINGERPRINT_STRATEGY,
@@ -1740,6 +1845,7 @@ export const setupGetUpdateInfoTestSuite = ({
           shouldForceUpdate: false,
           enabled: true,
           id: "01957164-fbc6-785f-98ce-a6ae459f6e4f", // 2025-03-07T16:16:38.342Z
+          originBundleId: "01957164-fbc6-785f-98ce-a6ae459f6e4f",
         },
       ];
 
@@ -1766,6 +1872,7 @@ export const setupGetUpdateInfoTestSuite = ({
           shouldForceUpdate: false,
           enabled: true,
           id: "01957179-d99d-7fbb-bc1e-feff6b3236f0", // only available bundle, equal to minBundleId
+          originBundleId: "01957179-d99d-7fbb-bc1e-feff6b3236f0",
         },
       ];
 
@@ -1788,6 +1895,7 @@ export const setupGetUpdateInfoTestSuite = ({
           enabled: true,
           channel: "beta",
           id: "00000000-0000-0000-0000-000000000001",
+          originBundleId: "00000000-0000-0000-0000-000000000001",
         },
       ];
 
@@ -1811,6 +1919,7 @@ export const setupGetUpdateInfoTestSuite = ({
           enabled: true,
           channel: "beta",
           id: "00000000-0000-0000-0000-000000000001",
+          originBundleId: "00000000-0000-0000-0000-000000000001",
         },
       ];
 
@@ -1838,6 +1947,7 @@ export const setupGetUpdateInfoTestSuite = ({
           enabled: true,
           shouldForceUpdate: false,
           id: "01957b63-7d11-7281-b8e7-1120ccfdb8ab",
+          originBundleId: "01957b63-7d11-7281-b8e7-1120ccfdb8ab",
         },
       ];
 
@@ -1875,6 +1985,7 @@ export const setupGetUpdateInfoTestSuite = ({
           enabled: true,
           shouldForceUpdate: true,
           id: "01963024-c131-7971-8725-ab47e232df40",
+          originBundleId: "01963024-c131-7971-8725-ab47e232df40",
           platform: "ios",
           fingerprintHash: "hash1",
         },

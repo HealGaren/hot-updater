@@ -90,6 +90,7 @@ afterAll(async () => {
 
 const createTestBundle = (overrides?: Partial<Bundle>): Bundle => ({
   id: NIL_UUID,
+  originBundleId: NIL_UUID,
   platform: "ios",
   channel: "production",
   enabled: true,

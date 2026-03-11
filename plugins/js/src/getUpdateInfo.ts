@@ -52,6 +52,8 @@ const appVersionStrategy = async (
   }: AppVersionGetBundlesArgs,
 ): Promise<UpdateInfo | null> => {
   // Initial filtering: apply platform, channel, semver conditions, enabled status, and minBundleId condition
+  // Use originBundleId for version ordering so copy-promoted bundles are treated
+  // as bundles from their original build time, not their promotion time.
   const candidateBundles: Bundle[] = [];
 
   for (const b of bundles) {
@@ -61,7 +63,7 @@ const appVersionStrategy = async (
       !b.targetAppVersion ||
       !semverSatisfies(b.targetAppVersion, appVersion) ||
       !b.enabled ||
-      (minBundleId && b.id.localeCompare(minBundleId) < 0)
+      (minBundleId && b.originBundleId.localeCompare(minBundleId) < 0)
     ) {
       continue;
     }
@@ -85,25 +87,31 @@ const appVersionStrategy = async (
   let currentBundle: Bundle | undefined;
 
   for (const b of candidateBundles) {
-    // Latest bundle (bundle with the largest ID)
-    if (!latestCandidate || b.id.localeCompare(latestCandidate.id) > 0) {
+    // Latest bundle (bundle with the largest originBundleId)
+    if (
+      !latestCandidate ||
+      b.originBundleId.localeCompare(latestCandidate.originBundleId) > 0
+    ) {
       latestCandidate = b;
     }
-    // Check if current bundle exists
-    if (b.id === bundleId) {
+    // Check if current bundle exists (originBundleId matches client's bundleId)
+    if (b.originBundleId === bundleId) {
       currentBundle = b;
     } else if (bundleId !== NIL_UUID) {
-      // Update candidate: largest ID among those greater than the current bundle
-      if (b.id.localeCompare(bundleId) > 0) {
-        if (!updateCandidate || b.id.localeCompare(updateCandidate.id) > 0) {
+      // Update candidate: largest originBundleId among those greater than the current bundle
+      if (b.originBundleId.localeCompare(bundleId) > 0) {
+        if (
+          !updateCandidate ||
+          b.originBundleId.localeCompare(updateCandidate.originBundleId) > 0
+        ) {
           updateCandidate = b;
         }
       }
-      // Rollback candidate: largest ID among those smaller than the current bundle
-      else if (b.id.localeCompare(bundleId) < 0) {
+      // Rollback candidate: largest originBundleId among those smaller than the current bundle
+      else if (b.originBundleId.localeCompare(bundleId) < 0) {
         if (
           !rollbackCandidate ||
-          b.id.localeCompare(rollbackCandidate.id) > 0
+          b.originBundleId.localeCompare(rollbackCandidate.originBundleId) > 0
         ) {
           rollbackCandidate = b;
         }
@@ -113,7 +121,10 @@ const appVersionStrategy = async (
 
   if (bundleId === NIL_UUID) {
     // For NIL_UUID, return an update if there's a latest candidate
-    if (latestCandidate && latestCandidate.id.localeCompare(bundleId) > 0) {
+    if (
+      latestCandidate &&
+      latestCandidate.originBundleId.localeCompare(bundleId) > 0
+    ) {
       return makeResponse(latestCandidate, "UPDATE");
     }
     return null;
@@ -123,7 +134,9 @@ const appVersionStrategy = async (
     // If current bundle exists, compare with latest candidate to determine update
     if (
       latestCandidate &&
-      latestCandidate.id.localeCompare(currentBundle.id) > 0
+      latestCandidate.originBundleId.localeCompare(
+        currentBundle.originBundleId,
+      ) > 0
     ) {
       return makeResponse(latestCandidate, "UPDATE");
     }
@@ -163,7 +176,7 @@ const fingerprintStrategy = async (
       !b.fingerprintHash ||
       b.fingerprintHash !== fingerprintHash ||
       !b.enabled ||
-      (minBundleId && b.id.localeCompare(minBundleId) < 0)
+      (minBundleId && b.originBundleId.localeCompare(minBundleId) < 0)
     ) {
       continue;
     }
@@ -187,25 +200,31 @@ const fingerprintStrategy = async (
   let currentBundle: Bundle | undefined;
 
   for (const b of candidateBundles) {
-    // Latest bundle (bundle with the largest ID)
-    if (!latestCandidate || b.id.localeCompare(latestCandidate.id) > 0) {
+    // Latest bundle (bundle with the largest originBundleId)
+    if (
+      !latestCandidate ||
+      b.originBundleId.localeCompare(latestCandidate.originBundleId) > 0
+    ) {
       latestCandidate = b;
     }
-    // Check if current bundle exists
-    if (b.id === bundleId) {
+    // Check if current bundle exists (originBundleId matches client's bundleId)
+    if (b.originBundleId === bundleId) {
       currentBundle = b;
     } else if (bundleId !== NIL_UUID) {
-      // Update candidate: largest ID among those greater than the current bundle
-      if (b.id.localeCompare(bundleId) > 0) {
-        if (!updateCandidate || b.id.localeCompare(updateCandidate.id) > 0) {
+      // Update candidate: largest originBundleId among those greater than the current bundle
+      if (b.originBundleId.localeCompare(bundleId) > 0) {
+        if (
+          !updateCandidate ||
+          b.originBundleId.localeCompare(updateCandidate.originBundleId) > 0
+        ) {
           updateCandidate = b;
         }
       }
-      // Rollback candidate: largest ID among those smaller than the current bundle
-      else if (b.id.localeCompare(bundleId) < 0) {
+      // Rollback candidate: largest originBundleId among those smaller than the current bundle
+      else if (b.originBundleId.localeCompare(bundleId) < 0) {
         if (
           !rollbackCandidate ||
-          b.id.localeCompare(rollbackCandidate.id) > 0
+          b.originBundleId.localeCompare(rollbackCandidate.originBundleId) > 0
         ) {
           rollbackCandidate = b;
         }
@@ -215,7 +234,10 @@ const fingerprintStrategy = async (
 
   if (bundleId === NIL_UUID) {
     // For NIL_UUID, return an update if there's a latest candidate
-    if (latestCandidate && latestCandidate.id.localeCompare(bundleId) > 0) {
+    if (
+      latestCandidate &&
+      latestCandidate.originBundleId.localeCompare(bundleId) > 0
+    ) {
       return makeResponse(latestCandidate, "UPDATE");
     }
     return null;
@@ -225,7 +247,9 @@ const fingerprintStrategy = async (
     // If current bundle exists, compare with latest candidate to determine update
     if (
       latestCandidate &&
-      latestCandidate.id.localeCompare(currentBundle.id) > 0
+      latestCandidate.originBundleId.localeCompare(
+        currentBundle.originBundleId,
+      ) > 0
     ) {
       return makeResponse(latestCandidate, "UPDATE");
     }

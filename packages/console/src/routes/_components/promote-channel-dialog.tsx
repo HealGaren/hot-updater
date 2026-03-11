@@ -53,10 +53,12 @@ export const PromoteChannelDialog = ({ bundle }: PromoteChannelDialogProps) => {
     try {
       if (shouldCopy()) {
         // Copy: Create new bundle with new ID (preserving timestamp) and target channel
+        // Propagate originBundleId so the server can detect bundle equivalence
         const newBundle: Bundle = {
           ...bundle,
           id: createUUIDv7WithSameTimestamp(bundle.id),
           channel: selectedChannel(),
+          originBundleId: bundle.originBundleId,
         };
 
         const res = await api.bundles.$post({

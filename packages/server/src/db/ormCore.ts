@@ -14,12 +14,13 @@ import { fumadb } from "fumadb";
 import type { FumaDBAdapter } from "fumadb/adapters";
 import { calculatePagination } from "../calculatePagination";
 import { v0_21_0 } from "../schema/v0_21_0";
+import { v0_27_0 } from "../schema/v0_27_0";
 import type { PaginationInfo } from "../types";
 import type { DatabaseAPI } from "./types";
 
 export const HotUpdaterDB = fumadb({
   namespace: "hot_updater",
-  schemas: [v0_21_0],
+  schemas: [v0_21_0, v0_27_0],
 });
 
 export type HotUpdaterClient = InferFumaDB<typeof HotUpdaterDB>;
@@ -74,6 +75,8 @@ export function createOrmDatabaseCore({
         storageUri: result.storage_uri,
         targetAppVersion: result.target_app_version ?? null,
         fingerprintHash: result.fingerprint_hash ?? null,
+        // `as any` needed for backward compat with schemas before v0_27_0
+        originBundleId: (result as any).origin_bundle_id || result.id,
       };
       return bundle;
     },
@@ -111,6 +114,10 @@ export function createOrmDatabaseCore({
         storageUri: null,
         fileHash: null,
       };
+
+      // Helper to extract originBundleId from a row (backward compat with schemas before v0_27_0)
+      const getOriginBundleId = (row: { id: string }): string =>
+        (row as any).origin_bundle_id || row.id;
 
       const appVersionStrategy = async ({
         platform,
@@ -159,25 +166,37 @@ export function createOrmDatabaseCore({
                   ),
               });
 
-        const candidates = (baseRows ?? []).filter((r) =>
-          r.target_app_version
-            ? compatibleVersions.includes(r.target_app_version)
-            : false,
+        // Filter by compatible versions and originBundleId >= minBundleId
+        const candidates = (baseRows ?? []).filter(
+          (r) =>
+            r.target_app_version &&
+            compatibleVersions.includes(r.target_app_version) &&
+            getOriginBundleId(r).localeCompare(minBundleId) >= 0,
         );
 
-        const byIdDesc = (a: { id: string }, b: { id: string }) =>
-          b.id.localeCompare(a.id);
-        const sorted = (candidates ?? []).slice().sort(byIdDesc);
+        // Sort by originBundleId descending for version ordering
+        const byOriginDesc = (a: { id: string }, b: { id: string }) =>
+          getOriginBundleId(b).localeCompare(getOriginBundleId(a));
+        const sorted = (candidates ?? []).slice().sort(byOriginDesc);
 
         const latestCandidate = sorted[0] ?? null;
-        const currentBundle = sorted.find((b) => b.id === bundleId);
+        const currentBundle = sorted.find(
+          (b) => getOriginBundleId(b) === bundleId,
+        );
         const updateCandidate =
-          sorted.find((b) => b.id.localeCompare(bundleId) > 0) ?? null;
+          sorted.find(
+            (b) => getOriginBundleId(b).localeCompare(bundleId) > 0,
+          ) ?? null;
         const rollbackCandidate =
-          sorted.find((b) => b.id.localeCompare(bundleId) < 0) ?? null;
+          sorted.find(
+            (b) => getOriginBundleId(b).localeCompare(bundleId) < 0,
+          ) ?? null;
 
         if (bundleId === NIL_UUID) {
-          if (latestCandidate && latestCandidate.id !== bundleId) {
+          if (
+            latestCandidate &&
+            getOriginBundleId(latestCandidate) !== bundleId
+          ) {
             return toUpdateInfo(latestCandidate, "UPDATE");
           }
           return null;
@@ -186,7 +205,9 @@ export function createOrmDatabaseCore({
         if (currentBundle) {
           if (
             latestCandidate &&
-            latestCandidate.id.localeCompare(currentBundle.id) > 0
+            getOriginBundleId(latestCandidate).localeCompare(
+              getOriginBundleId(currentBundle),
+            ) > 0
           ) {
             return toUpdateInfo(latestCandidate, "UPDATE");
           }
@@ -213,7 +234,7 @@ export function createOrmDatabaseCore({
         minBundleId = NIL_UUID,
         channel = "production",
       }: FingerprintGetBundlesArgs): Promise<UpdateInfo | null> => {
-        const candidates = await orm.findMany("bundles", {
+        const rawCandidates = await orm.findMany("bundles", {
           select: [
             "id",
             "should_force_update",
@@ -234,19 +255,34 @@ export function createOrmDatabaseCore({
             ),
         });
 
-        const byIdDesc = (a: { id: string }, b: { id: string }) =>
-          b.id.localeCompare(a.id);
-        const sorted = (candidates ?? []).slice().sort(byIdDesc);
+        // Post-filter by originBundleId >= minBundleId
+        const candidates = (rawCandidates ?? []).filter(
+          (r) => getOriginBundleId(r).localeCompare(minBundleId) >= 0,
+        );
+
+        // Sort by originBundleId descending for version ordering
+        const byOriginDesc = (a: { id: string }, b: { id: string }) =>
+          getOriginBundleId(b).localeCompare(getOriginBundleId(a));
+        const sorted = (candidates ?? []).slice().sort(byOriginDesc);
 
         const latestCandidate = sorted[0] ?? null;
-        const currentBundle = sorted.find((b) => b.id === bundleId);
+        const currentBundle = sorted.find(
+          (b) => getOriginBundleId(b) === bundleId,
+        );
         const updateCandidate =
-          sorted.find((b) => b.id.localeCompare(bundleId) > 0) ?? null;
+          sorted.find(
+            (b) => getOriginBundleId(b).localeCompare(bundleId) > 0,
+          ) ?? null;
         const rollbackCandidate =
-          sorted.find((b) => b.id.localeCompare(bundleId) < 0) ?? null;
+          sorted.find(
+            (b) => getOriginBundleId(b).localeCompare(bundleId) < 0,
+          ) ?? null;
 
         if (bundleId === NIL_UUID) {
-          if (latestCandidate && latestCandidate.id !== bundleId) {
+          if (
+            latestCandidate &&
+            getOriginBundleId(latestCandidate) !== bundleId
+          ) {
             return toUpdateInfo(latestCandidate, "UPDATE");
           }
           return null;
@@ -255,7 +291,9 @@ export function createOrmDatabaseCore({
         if (currentBundle) {
           if (
             latestCandidate &&
-            latestCandidate.id.localeCompare(currentBundle.id) > 0
+            getOriginBundleId(latestCandidate).localeCompare(
+              getOriginBundleId(currentBundle),
+            ) > 0
           ) {
             return toUpdateInfo(latestCandidate, "UPDATE");
           }
@@ -356,6 +394,8 @@ export function createOrmDatabaseCore({
             storageUri: r.storage_uri,
             targetAppVersion: r.target_app_version ?? null,
             fingerprintHash: r.fingerprint_hash ?? null,
+            // `as any` needed for backward compat with schemas before v0_27_0
+            originBundleId: (r as any).origin_bundle_id || r.id,
           }),
         )
         .sort((a, b) => b.id.localeCompare(a.id));
@@ -385,6 +425,7 @@ export function createOrmDatabaseCore({
         target_app_version: bundle.targetAppVersion,
         fingerprint_hash: bundle.fingerprintHash,
         metadata: bundle.metadata ?? {},
+        origin_bundle_id: bundle.originBundleId || bundle.id,
       };
       const { id, ...updateValues } = values;
       await orm.upsert("bundles", {
@@ -416,6 +457,7 @@ export function createOrmDatabaseCore({
         target_app_version: merged.targetAppVersion,
         fingerprint_hash: merged.fingerprintHash,
         metadata: merged.metadata ?? {},
+        origin_bundle_id: merged.originBundleId || merged.id,
       };
       const { id: id2, ...updateValues2 } = values;
       await orm.upsert("bundles", {

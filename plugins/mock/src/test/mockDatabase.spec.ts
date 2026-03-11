@@ -5,6 +5,7 @@ import { mockDatabase } from "../mockDatabase";
 const DEFAULT_BUNDLES: Bundle[] = [
   {
     id: "0194ed78-ee7f-7d55-88f2-0511cbacc8f1",
+    originBundleId: "0194ed78-ee7f-7d55-88f2-0511cbacc8f1",
     enabled: true,
     channel: "production",
     shouldForceUpdate: false,
@@ -20,6 +21,7 @@ const DEFAULT_BUNDLES: Bundle[] = [
   },
   {
     id: "0194ed78-d791-753c-ba37-abb7259edcc8",
+    originBundleId: "0194ed78-d791-753c-ba37-abb7259edcc8",
     enabled: true,
     channel: "production",
     shouldForceUpdate: false,
@@ -69,6 +71,7 @@ describe("mockDatabase", () => {
   it("should return correct pagination info for single page", async () => {
     const bundle1 = {
       id: "bundle1",
+      originBundleId: "bundle1",
       channel: "production",
       enabled: true,
       shouldForceUpdate: true,
@@ -84,6 +87,7 @@ describe("mockDatabase", () => {
 
     const bundle2 = {
       id: "bundle2",
+      originBundleId: "bundle2",
       channel: "production",
       enabled: false,
       shouldForceUpdate: false,
@@ -99,6 +103,7 @@ describe("mockDatabase", () => {
 
     const bundle3 = {
       id: "bundle3",
+      originBundleId: "bundle3",
       channel: "staging",
       enabled: true,
       shouldForceUpdate: false,
@@ -139,6 +144,7 @@ describe("mockDatabase", () => {
   it("should return correct pagination info for multiple pages", async () => {
     const bundle1 = {
       id: "bundle1",
+      originBundleId: "bundle1",
       channel: "production",
       enabled: true,
       shouldForceUpdate: true,
@@ -154,6 +160,7 @@ describe("mockDatabase", () => {
 
     const bundle2 = {
       id: "bundle2",
+      originBundleId: "bundle2",
       channel: "production",
       enabled: false,
       shouldForceUpdate: false,
@@ -169,6 +176,7 @@ describe("mockDatabase", () => {
 
     const bundle3 = {
       id: "bundle3",
+      originBundleId: "bundle3",
       channel: "production",
       enabled: true,
       shouldForceUpdate: false,
@@ -315,6 +323,7 @@ describe("mockDatabase", () => {
     const nonExistentBundle = {
       ...DEFAULT_BUNDLES_MOCK[0],
       id: "non-existent-bundle",
+      originBundleId: "non-existent-bundle",
     };
 
     await plugin.deleteBundle(nonExistentBundle);
@@ -380,11 +389,13 @@ describe("mockDatabase", () => {
       {
         ...DEFAULT_BUNDLES_MOCK[0],
         id: "bundle-prod",
+        originBundleId: "bundle-prod",
         channel: "production",
       },
       {
         ...DEFAULT_BUNDLES_MOCK[1],
         id: "bundle-staging",
+        originBundleId: "bundle-staging",
         channel: "staging",
       },
     ];
@@ -413,16 +424,19 @@ describe("mockDatabase", () => {
       {
         ...DEFAULT_BUNDLES_MOCK[0],
         id: "bundle-1",
+        originBundleId: "bundle-1",
         channel: "production",
       },
       {
         ...DEFAULT_BUNDLES_MOCK[1],
         id: "bundle-2",
+        originBundleId: "bundle-2",
         channel: "production",
       },
       {
         ...DEFAULT_BUNDLES_MOCK[0],
         id: "bundle-3",
+        originBundleId: "bundle-3",
         channel: "production",
       },
     ];
@@ -467,6 +481,7 @@ describe("mockDatabase", () => {
   it("should work with appendBundle and deleteBundle workflow", async () => {
     const newBundle: Bundle = {
       id: "new-bundle",
+      originBundleId: "new-bundle",
       channel: "test",
       enabled: true,
       shouldForceUpdate: false,
@@ -504,6 +519,7 @@ describe("mockDatabase", () => {
   it("should process mixed operations in sequence", async () => {
     const bundle1 = {
       id: "bundle1",
+      originBundleId: "bundle1",
       channel: "production",
       enabled: true,
       shouldForceUpdate: false,
@@ -519,6 +535,7 @@ describe("mockDatabase", () => {
 
     const bundle2 = {
       id: "bundle2",
+      originBundleId: "bundle2",
       channel: "production",
       enabled: false,
       shouldForceUpdate: false,

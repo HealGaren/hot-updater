@@ -19,21 +19,24 @@ describe("checkForRollback", () => {
   it("should return availableOldVersion if enabled is null or undefined", () => {
     const bundles: Bundle[] = [
       {
-        id: "00000000-0000-0000-0000-000000000001",
-        enabled: true,
         ...DEFAULT_BUNDLE_FINGERPRINT_STRATEGY,
+        id: "00000000-0000-0000-0000-000000000001",
+        originBundleId: "00000000-0000-0000-0000-000000000001",
+        enabled: true,
       },
       {
-        id: "00000000-0000-0000-0000-000000000002",
-        enabled: false,
         ...DEFAULT_BUNDLE_FINGERPRINT_STRATEGY,
+        id: "00000000-0000-0000-0000-000000000002",
+        originBundleId: "00000000-0000-0000-0000-000000000002",
+        enabled: false,
         storageUri:
           "storage://my-app/00000000-0000-0000-0000-000000000000/bundle.zip",
       },
       {
-        id: "00000000-0000-0000-0000-000000000003",
-        enabled: true,
         ...DEFAULT_BUNDLE_FINGERPRINT_STRATEGY,
+        id: "00000000-0000-0000-0000-000000000003",
+        originBundleId: "00000000-0000-0000-0000-000000000003",
+        enabled: true,
       },
     ];
     const currentBundleId = "00000000-0000-0000-0000-000000000004";
@@ -44,14 +47,16 @@ describe("checkForRollback", () => {
   it("should return undefined if no matching bundle is found", () => {
     const bundles: Bundle[] = [
       {
-        id: "00000000-0000-0000-0000-000000000001",
-        enabled: true,
         ...DEFAULT_BUNDLE_FINGERPRINT_STRATEGY,
+        id: "00000000-0000-0000-0000-000000000001",
+        originBundleId: "00000000-0000-0000-0000-000000000001",
+        enabled: true,
       },
       {
-        id: "00000000-0000-0000-0000-000000000002",
-        enabled: false,
         ...DEFAULT_BUNDLE_FINGERPRINT_STRATEGY,
+        id: "00000000-0000-0000-0000-000000000002",
+        originBundleId: "00000000-0000-0000-0000-000000000002",
+        enabled: false,
       },
     ];
     const currentBundleId = "00000000-0000-0000-0000-000000000003";

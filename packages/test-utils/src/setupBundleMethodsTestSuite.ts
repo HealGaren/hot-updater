@@ -46,6 +46,7 @@ export const setupBundleMethodsTestSuite = ({
         targetAppVersion: "1.0.0",
         fingerprintHash: null,
         metadata: {},
+        originBundleId: "00000000-0000-0000-0000-000000000010",
       };
 
       await insertBundle(bundle);
@@ -83,6 +84,7 @@ export const setupBundleMethodsTestSuite = ({
           storageUri: "mock://test/1.zip",
           targetAppVersion: "1.0.0",
           fingerprintHash: null,
+          originBundleId: "00000000-0000-0000-0000-000000000020",
         },
         {
           id: "00000000-0000-0000-0000-000000000021",
@@ -96,6 +98,7 @@ export const setupBundleMethodsTestSuite = ({
           storageUri: "mock://test/2.zip",
           targetAppVersion: "1.0.0",
           fingerprintHash: null,
+          originBundleId: "00000000-0000-0000-0000-000000000021",
         },
         {
           id: "00000000-0000-0000-0000-000000000022",
@@ -109,6 +112,7 @@ export const setupBundleMethodsTestSuite = ({
           storageUri: "mock://test/3.zip",
           targetAppVersion: "1.0.0",
           fingerprintHash: null,
+          originBundleId: "00000000-0000-0000-0000-000000000022",
         },
       ];
 
@@ -140,6 +144,7 @@ export const setupBundleMethodsTestSuite = ({
           storageUri: "mock://test/1.zip",
           targetAppVersion: "1.0.0",
           fingerprintHash: null,
+          originBundleId: "00000000-0000-0000-0000-000000000030",
         },
         {
           id: "00000000-0000-0000-0000-000000000031",
@@ -153,6 +158,7 @@ export const setupBundleMethodsTestSuite = ({
           storageUri: "mock://test/2.zip",
           targetAppVersion: "1.0.0",
           fingerprintHash: null,
+          originBundleId: "00000000-0000-0000-0000-000000000031",
         },
       ];
 
@@ -185,6 +191,7 @@ export const setupBundleMethodsTestSuite = ({
           storageUri: "mock://test/3.zip",
           targetAppVersion: "1.0.0",
           fingerprintHash: null,
+          originBundleId: "00000000-0000-0000-0000-000000000032",
         },
         {
           id: "00000000-0000-0000-0000-000000000033",
@@ -198,6 +205,7 @@ export const setupBundleMethodsTestSuite = ({
           storageUri: "mock://test/4.zip",
           targetAppVersion: "1.0.0",
           fingerprintHash: null,
+          originBundleId: "00000000-0000-0000-0000-000000000033",
         },
       ];
 
@@ -231,6 +239,7 @@ export const setupBundleMethodsTestSuite = ({
           storageUri: "mock://test/5.zip",
           targetAppVersion: "1.0.0",
           fingerprintHash: null,
+          originBundleId: "00000000-0000-0000-0000-000000000034",
         },
         {
           id: "00000000-0000-0000-0000-000000000035",
@@ -244,6 +253,7 @@ export const setupBundleMethodsTestSuite = ({
           storageUri: "mock://test/6.zip",
           targetAppVersion: "1.0.0",
           fingerprintHash: null,
+          originBundleId: "00000000-0000-0000-0000-000000000035",
         },
       ];
 
@@ -277,6 +287,7 @@ export const setupBundleMethodsTestSuite = ({
           storageUri: "mock://test/7.zip",
           targetAppVersion: "1.0.0",
           fingerprintHash: null,
+          originBundleId: "00000000-0000-0000-0000-000000000036",
         },
         {
           id: "00000000-0000-0000-0000-000000000037",
@@ -290,6 +301,7 @@ export const setupBundleMethodsTestSuite = ({
           storageUri: "mock://test/8.zip",
           targetAppVersion: "1.0.0",
           fingerprintHash: null,
+          originBundleId: "00000000-0000-0000-0000-000000000037",
         },
       ];
 
@@ -349,6 +361,7 @@ export const setupBundleMethodsTestSuite = ({
         storageUri: "mock://test/update.zip",
         targetAppVersion: "1.0.0",
         fingerprintHash: null,
+        originBundleId: "00000000-0000-0000-0000-000000000040",
       };
 
       await insertBundle(bundle);
@@ -374,6 +387,7 @@ export const setupBundleMethodsTestSuite = ({
         storageUri: "mock://test/message.zip",
         targetAppVersion: "1.0.0",
         fingerprintHash: null,
+        originBundleId: "00000000-0000-0000-0000-000000000041",
       };
 
       await insertBundle(bundle);
@@ -399,6 +413,7 @@ export const setupBundleMethodsTestSuite = ({
         storageUri: "mock://test/multi.zip",
         targetAppVersion: "1.0.0",
         fingerprintHash: null,
+        originBundleId: "00000000-0000-0000-0000-000000000042",
       };
 
       await insertBundle(bundle);
@@ -431,6 +446,7 @@ export const setupBundleMethodsTestSuite = ({
         storageUri: "mock://test/delete.zip",
         targetAppVersion: "1.0.0",
         fingerprintHash: null,
+        originBundleId: "00000000-0000-0000-0000-000000000050",
       };
 
       await insertBundle(bundle);

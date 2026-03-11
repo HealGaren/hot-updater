@@ -69,6 +69,7 @@ function transformRowToBundle(row: SnakeCaseBundle): Bundle {
     storageUri: row.storage_uri,
     fingerprintHash: row.fingerprint_hash,
     metadata: row?.metadata ? JSON.parse(row?.metadata as string) : {},
+    originBundleId: row.origin_bundle_id || row.id,
   };
 }
 
@@ -221,9 +222,10 @@ export const d1Database = createDatabasePlugin<D1DatabaseConfig>({
                 target_app_version,
                 storage_uri,
                 fingerprint_hash,
-                metadata
+                metadata,
+                origin_bundle_id
               )
-              VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+              VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
             `);
 
             const params = [
@@ -241,6 +243,7 @@ export const d1Database = createDatabasePlugin<D1DatabaseConfig>({
               bundle.metadata
                 ? JSON.stringify(bundle.metadata)
                 : JSON.stringify({}),
+              bundle.originBundleId || bundle.id,
             ];
 
             await cf.d1.database.query(config.databaseId, {

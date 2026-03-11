@@ -33,11 +33,11 @@ BEGIN
         FROM bundles b
         WHERE b.enabled = TRUE
           AND b.platform = app_platform
-          AND b.id >= bundle_id
-          AND b.id > min_bundle_id
+          AND b.origin_bundle_id > bundle_id
+          AND b.origin_bundle_id > min_bundle_id
           AND b.channel = target_channel
           AND b.fingerprint_hash = target_fingerprint_hash
-        ORDER BY b.id DESC
+        ORDER BY b.origin_bundle_id DESC
         LIMIT 1
     ),
     rollback_candidate AS (
@@ -51,11 +51,11 @@ BEGIN
         FROM bundles b
         WHERE b.enabled = TRUE
           AND b.platform = app_platform
-          AND b.id < bundle_id
-          AND b.id > min_bundle_id
+          AND b.origin_bundle_id < bundle_id
+          AND b.origin_bundle_id > min_bundle_id
           AND b.channel = target_channel
           AND b.fingerprint_hash = target_fingerprint_hash
-        ORDER BY b.id DESC
+        ORDER BY b.origin_bundle_id DESC
         LIMIT 1
     ),
     final_result AS (
@@ -66,7 +66,6 @@ BEGIN
     )
     SELECT *
     FROM final_result
-    WHERE final_result.id != bundle_id
 
     UNION ALL
 
@@ -83,7 +82,7 @@ BEGIN
       AND NOT EXISTS (
           SELECT 1
           FROM bundles b
-          WHERE b.id = bundle_id
+          WHERE b.origin_bundle_id = bundle_id
             AND b.enabled = TRUE
             AND b.platform = app_platform
       );

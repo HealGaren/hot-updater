@@ -34,11 +34,11 @@ BEGIN
         FROM bundles b
         WHERE b.enabled = TRUE
           AND b.platform = app_platform
-          AND b.id >= bundle_id
-          AND b.id > min_bundle_id
+          AND b.origin_bundle_id > bundle_id
+          AND b.origin_bundle_id > min_bundle_id
           AND b.target_app_version IN (SELECT unnest(target_app_version_list))
           AND b.channel = target_channel
-        ORDER BY b.id DESC
+        ORDER BY b.origin_bundle_id DESC
         LIMIT 1
     ),
     rollback_candidate AS (
@@ -52,9 +52,9 @@ BEGIN
         FROM bundles b
         WHERE b.enabled = TRUE
           AND b.platform = app_platform
-          AND b.id < bundle_id
-          AND b.id > min_bundle_id
-        ORDER BY b.id DESC
+          AND b.origin_bundle_id < bundle_id
+          AND b.origin_bundle_id > min_bundle_id
+        ORDER BY b.origin_bundle_id DESC
         LIMIT 1
     ),
     final_result AS (
@@ -65,7 +65,6 @@ BEGIN
     )
     SELECT *
     FROM final_result
-    WHERE final_result.id != bundle_id
 
     UNION ALL
 
@@ -82,7 +81,7 @@ BEGIN
       AND NOT EXISTS (
           SELECT 1
           FROM bundles b
-          WHERE b.id = bundle_id
+          WHERE b.origin_bundle_id = bundle_id
             AND b.enabled = TRUE
             AND b.platform = app_platform
       );

@@ -92,6 +92,7 @@ describe("server/db hotUpdater getUpdateInfo (PGlite + Kysely)", async () => {
     it("should retrieve bundle by id without Prisma validation errors", async () => {
       const bundle: Bundle = {
         id: "00000000-0000-0000-0000-000000000010",
+        originBundleId: "00000000-0000-0000-0000-000000000010",
         platform: "ios",
         shouldForceUpdate: false,
         enabled: true,
@@ -129,6 +130,7 @@ describe("server/db hotUpdater getUpdateInfo (PGlite + Kysely)", async () => {
       const bundles: Bundle[] = [
         {
           id: "00000000-0000-0000-0000-000000000020",
+          originBundleId: "00000000-0000-0000-0000-000000000020",
           platform: "ios",
           shouldForceUpdate: false,
           enabled: true,
@@ -142,6 +144,7 @@ describe("server/db hotUpdater getUpdateInfo (PGlite + Kysely)", async () => {
         },
         {
           id: "00000000-0000-0000-0000-000000000021",
+          originBundleId: "00000000-0000-0000-0000-000000000021",
           platform: "android",
           shouldForceUpdate: false,
           enabled: true,
@@ -155,6 +158,7 @@ describe("server/db hotUpdater getUpdateInfo (PGlite + Kysely)", async () => {
         },
         {
           id: "00000000-0000-0000-0000-000000000022",
+          originBundleId: "00000000-0000-0000-0000-000000000022",
           platform: "ios",
           shouldForceUpdate: false,
           enabled: true,
@@ -200,6 +204,7 @@ describe("server/db hotUpdater getUpdateInfo (PGlite + Kysely)", async () => {
     it("resolves s3:// storage URI to signed URL via s3StoragePlugin", async () => {
       const bundle: Bundle = {
         id: "00000000-0000-0000-0000-000000000001",
+        originBundleId: "00000000-0000-0000-0000-000000000001",
         platform: "ios",
         shouldForceUpdate: false,
         enabled: true,
@@ -230,6 +235,7 @@ describe("server/db hotUpdater getUpdateInfo (PGlite + Kysely)", async () => {
     it("passes through http:// URLs without plugin resolution", async () => {
       const bundle: Bundle = {
         id: "00000000-0000-0000-0000-000000000004",
+        originBundleId: "00000000-0000-0000-0000-000000000004",
         platform: "ios",
         shouldForceUpdate: false,
         enabled: true,
@@ -260,6 +266,7 @@ describe("server/db hotUpdater getUpdateInfo (PGlite + Kysely)", async () => {
     it("passes through https:// URLs without plugin resolution", async () => {
       const bundle: Bundle = {
         id: "00000000-0000-0000-0000-000000000005",
+        originBundleId: "00000000-0000-0000-0000-000000000005",
         platform: "ios",
         shouldForceUpdate: false,
         enabled: true,
@@ -299,6 +306,7 @@ describe("server/db hotUpdater getUpdateInfo (PGlite + Kysely)", async () => {
     it("works with fingerprint strategy", async () => {
       const bundle: Bundle = {
         id: "00000000-0000-0000-0000-000000000008",
+        originBundleId: "00000000-0000-0000-0000-000000000008",
         platform: "ios",
         shouldForceUpdate: false,
         enabled: true,

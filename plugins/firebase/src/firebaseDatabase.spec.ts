@@ -40,6 +40,7 @@ describe("firebaseDatabase plugin", () => {
       targetAppVersion: "1.0.0",
       storageUri: "gs://test-bucket/test-key",
       fingerprintHash: null,
+      originBundleId: "bundle123",
     } as const;
     await plugin.appendBundle(snakeBundle);
     await plugin.commitBundle();
@@ -57,6 +58,7 @@ describe("firebaseDatabase plugin", () => {
       targetAppVersion: "1.0.0",
       storageUri: "gs://test-bucket/test-key",
       fingerprintHash: null,
+      originBundleId: "bundle123",
       metadata: {},
     });
   });
@@ -74,6 +76,7 @@ describe("firebaseDatabase plugin", () => {
       targetAppVersion: "2.0.0",
       storageUri: "gs://test-bucket/test-key",
       fingerprintHash: null,
+      originBundleId: "bundle1",
     } as const;
 
     const bundle2 = {
@@ -88,6 +91,7 @@ describe("firebaseDatabase plugin", () => {
       targetAppVersion: "1.0.0",
       storageUri: "gs://test-bucket/test-key",
       fingerprintHash: null,
+      originBundleId: "bundle2",
     } as const;
 
     const bundle3 = {
@@ -102,6 +106,7 @@ describe("firebaseDatabase plugin", () => {
       targetAppVersion: "1.5.0",
       storageUri: "gs://test-bucket/test-key",
       fingerprintHash: null,
+      originBundleId: "bundle3",
     } as const;
 
     await plugin.appendBundle(bundle1);
@@ -132,6 +137,7 @@ describe("firebaseDatabase plugin", () => {
       targetAppVersion: "2.0.0",
       storageUri: "gs://test-bucket/test-key",
       fingerprintHash: null,
+      originBundleId: "bundle1",
     } as const;
     const bundle2 = {
       id: "bundle2",
@@ -145,6 +151,7 @@ describe("firebaseDatabase plugin", () => {
       shouldForceUpdate: false,
       storageUri: "gs://test-bucket/test-key",
       fingerprintHash: null,
+      originBundleId: "bundle2",
     } as const;
     await plugin.appendBundle(bundle1);
     await plugin.appendBundle(bundle2);
@@ -167,6 +174,7 @@ describe("firebaseDatabase plugin", () => {
       targetAppVersion: "1.0.0",
       storageUri: "gs://test-bucket/test-key",
       fingerprintHash: null,
+      originBundleId: "bundle1",
     });
 
     await plugin.commitBundle();
@@ -196,6 +204,7 @@ describe("firebaseDatabase plugin", () => {
       targetAppVersion: "1.0.x",
       storageUri: "gs://test-bucket/test-key",
       fingerprintHash: null,
+      originBundleId: "bundle1",
     });
 
     await plugin.commitBundle();
@@ -233,6 +242,7 @@ describe("firebaseDatabase plugin", () => {
       targetAppVersion: "1.0.0",
       storageUri: "gs://test-bucket/test-key",
       fingerprintHash: null,
+      originBundleId: "bundleA",
     } as const;
     const bundleB = {
       id: "bundleB",
@@ -246,6 +256,7 @@ describe("firebaseDatabase plugin", () => {
       targetAppVersion: "1.0.0",
       storageUri: "gs://test-bucket/test-key",
       fingerprintHash: null,
+      originBundleId: "bundleB",
     } as const;
     const bundleC = {
       id: "bundleC",
@@ -259,6 +270,7 @@ describe("firebaseDatabase plugin", () => {
       targetAppVersion: "1.0.0",
       storageUri: "gs://test-bucket/test-key",
       fingerprintHash: null,
+      originBundleId: "bundleC",
     } as const;
 
     await plugin.appendBundle(bundleA);
@@ -285,6 +297,7 @@ describe("firebaseDatabase plugin", () => {
       targetAppVersion: "2.0.0",
       storageUri: "gs://test-bucket/test-key",
       fingerprintHash: null,
+      originBundleId: "bundle1",
     } as const;
 
     const bundle2 = {
@@ -299,6 +312,7 @@ describe("firebaseDatabase plugin", () => {
       targetAppVersion: "1.0.0",
       storageUri: "gs://test-bucket/test-key",
       fingerprintHash: null,
+      originBundleId: "bundle2",
     } as const;
 
     const bundle3 = {
@@ -313,6 +327,7 @@ describe("firebaseDatabase plugin", () => {
       targetAppVersion: "1.5.0",
       storageUri: "gs://test-bucket/test-key",
       fingerprintHash: null,
+      originBundleId: "bundle3",
     } as const;
 
     await plugin.appendBundle(bundle1);
@@ -352,6 +367,7 @@ describe("firebaseDatabase plugin", () => {
       targetAppVersion: "2.0.0",
       storageUri: "gs://test-bucket/test-key",
       fingerprintHash: null,
+      originBundleId: "bundle1",
     } as const;
 
     const bundle2 = {
@@ -366,6 +382,7 @@ describe("firebaseDatabase plugin", () => {
       targetAppVersion: "1.0.0",
       storageUri: "gs://test-bucket/test-key",
       fingerprintHash: null,
+      originBundleId: "bundle2",
     } as const;
 
     const bundle3 = {
@@ -380,6 +397,7 @@ describe("firebaseDatabase plugin", () => {
       targetAppVersion: "1.5.0",
       storageUri: "gs://test-bucket/test-key",
       fingerprintHash: null,
+      originBundleId: "bundle3",
     } as const;
 
     await plugin.appendBundle(bundle1);
@@ -432,6 +450,7 @@ describe("firebaseDatabase plugin", () => {
         targetAppVersion: "1.1.1",
         storageUri: "gs://test-bucket/test-key",
         fingerprintHash: null,
+        originBundleId: "bundleX",
       },
       {
         id: "bundleY",
@@ -445,6 +464,7 @@ describe("firebaseDatabase plugin", () => {
         targetAppVersion: "1.1.1",
         storageUri: "gs://test-bucket/test-key",
         fingerprintHash: null,
+        originBundleId: "bundleY",
       },
       {
         id: "bundleZ",
@@ -458,6 +478,7 @@ describe("firebaseDatabase plugin", () => {
         targetAppVersion: "1.1.1",
         storageUri: "gs://test-bucket/test-key",
         fingerprintHash: null,
+        originBundleId: "bundleZ",
       },
     ] as const;
 
@@ -494,6 +515,7 @@ describe("firebaseDatabase plugin", () => {
       targetAppVersion: null,
       storageUri: "gs://test-bucket/test-key",
       fingerprintHash: null,
+      originBundleId: "bundleNoVersion",
     });
     await plugin.commitBundle();
 
@@ -516,6 +538,7 @@ describe("firebaseDatabase plugin", () => {
       targetAppVersion: "2.0.0",
       storageUri: "gs://test-bucket/test-key",
       fingerprintHash: null,
+      originBundleId: "bundleDirect",
     } as const;
     await plugin.appendBundle(bundleDirect);
     await plugin.commitBundle();
@@ -544,6 +567,7 @@ describe("firebaseDatabase plugin", () => {
       targetAppVersion: "4.0.0",
       storageUri: "gs://test-bucket/test-key",
       fingerprintHash: null,
+      originBundleId: "bundleTV1",
     });
     await plugin.commitBundle();
 
@@ -571,6 +595,7 @@ describe("firebaseDatabase plugin", () => {
       targetAppVersion: "5.0.0",
       storageUri: "gs://test-bucket/test-key",
       fingerprintHash: null,
+      originBundleId: "bundleTV2",
     });
     await plugin.appendBundle({
       id: "bundleTV3",
@@ -584,6 +609,7 @@ describe("firebaseDatabase plugin", () => {
       targetAppVersion: "5.0.0",
       storageUri: "gs://test-bucket/test-key",
       fingerprintHash: null,
+      originBundleId: "bundleTV3",
     });
     await plugin.commitBundle();
 
@@ -606,6 +632,7 @@ describe("firebaseDatabase plugin", () => {
       targetAppVersion: "5.1.0",
       storageUri: "gs://test-bucket/test-key",
       fingerprintHash: null,
+      originBundleId: "bundleTV2",
     });
     await plugin.commitBundle();
 
@@ -635,6 +662,7 @@ describe("firebaseDatabase plugin", () => {
       targetAppVersion: "5.2.0",
       storageUri: "gs://test-bucket/test-key",
       fingerprintHash: null,
+      originBundleId: "bundleTV3",
     });
     await plugin.commitBundle();
 
@@ -671,6 +699,7 @@ describe("firebaseDatabase plugin", () => {
       targetAppVersion: "2.0.0",
       storageUri: "gs://test-bucket/test-key",
       fingerprintHash: null,
+      originBundleId: "bundleTV4",
     });
     await plugin.commitBundle();
     const tvDoc = await firestore
@@ -692,6 +721,7 @@ describe("firebaseDatabase plugin", () => {
       targetAppVersion: "2.0.1",
       storageUri: "gs://test-bucket/test-key",
       fingerprintHash: null,
+      originBundleId: "bundleTV4",
     });
     await plugin.commitBundle();
 
@@ -716,6 +746,7 @@ describe("firebaseDatabase plugin", () => {
       targetAppVersion: "1.0.0",
       storageUri: "gs://test-bucket/test-key",
       fingerprintHash: null,
+      originBundleId: "bundle1",
     });
     await plugin.commitBundle();
 
@@ -737,6 +768,7 @@ describe("firebaseDatabase plugin", () => {
       targetAppVersion: "1.0.0",
       storageUri: "gs://test-bucket/test-key",
       fingerprintHash: null,
+      originBundleId: "bundle1",
     });
     await plugin.commitBundle();
 
@@ -762,6 +794,7 @@ describe("firebaseDatabase plugin", () => {
       targetAppVersion: "1.1.1",
       storageUri: "gs://test-bucket/test-key",
       fingerprintHash: null,
+      originBundleId: "bundleX",
       metadata: {},
     },
     {
@@ -776,6 +809,7 @@ describe("firebaseDatabase plugin", () => {
       targetAppVersion: "1.1.1",
       storageUri: "gs://test-bucket/test-key",
       fingerprintHash: null,
+      originBundleId: "bundleY",
       metadata: {},
     },
     {
@@ -790,6 +824,7 @@ describe("firebaseDatabase plugin", () => {
       targetAppVersion: "1.1.1",
       storageUri: "gs://test-bucket/test-key",
       fingerprintHash: null,
+      originBundleId: "bundleZ",
       metadata: {},
     },
   ];
