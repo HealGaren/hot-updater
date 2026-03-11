@@ -26,6 +26,7 @@ const DEFAULT_BUNDLE: Omit<
   shouldForceUpdate: false,
   storageUri: "s3://test-bucket/test-key",
   fingerprintHash: null,
+  originBundleId: "DEFAULT",
 };
 
 const createBundleJson = (
@@ -39,6 +40,7 @@ const createBundleJson = (
   id,
   platform,
   targetAppVersion,
+  originBundleId: id,
 });
 
 const createBundleJsonFingerprint = (
@@ -53,6 +55,7 @@ const createBundleJsonFingerprint = (
   platform,
   fingerprintHash,
   targetAppVersion: null,
+  originBundleId: id,
 });
 
 // fakeStore simulates files stored in S3
@@ -639,6 +642,7 @@ describe("s3Database plugin", () => {
       targetAppVersion: "2.0.0",
       storageUri: "gs://test-bucket/test-key",
       fingerprintHash: null,
+      originBundleId: "bundle1",
     } as const;
 
     const bundle2 = {
@@ -653,6 +657,7 @@ describe("s3Database plugin", () => {
       targetAppVersion: "1.0.0",
       storageUri: "gs://test-bucket/test-key",
       fingerprintHash: null,
+      originBundleId: "bundle2",
     } as const;
 
     const bundle3 = {
@@ -667,6 +672,7 @@ describe("s3Database plugin", () => {
       targetAppVersion: "1.5.0",
       storageUri: "gs://test-bucket/test-key",
       fingerprintHash: null,
+      originBundleId: "bundle3",
     } as const;
 
     await plugin.appendBundle(bundle1);
@@ -706,6 +712,7 @@ describe("s3Database plugin", () => {
       targetAppVersion: "2.0.0",
       storageUri: "gs://test-bucket/test-key",
       fingerprintHash: null,
+      originBundleId: "bundle1",
     } as const;
 
     const bundle2 = {
@@ -720,6 +727,7 @@ describe("s3Database plugin", () => {
       targetAppVersion: "1.0.0",
       storageUri: "gs://test-bucket/test-key",
       fingerprintHash: null,
+      originBundleId: "bundle2",
     } as const;
 
     const bundle3 = {
@@ -734,6 +742,7 @@ describe("s3Database plugin", () => {
       targetAppVersion: "1.5.0",
       storageUri: "gs://test-bucket/test-key",
       fingerprintHash: null,
+      originBundleId: "bundle3",
     } as const;
 
     await plugin.appendBundle(bundle1);

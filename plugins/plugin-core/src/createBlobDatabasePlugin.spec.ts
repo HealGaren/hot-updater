@@ -13,6 +13,7 @@ const DEFAULT_BUNDLE: Omit<
   shouldForceUpdate: false,
   storageUri:
     "storage://my-app/00000000-0000-0000-0000-000000000000/bundle.zip",
+  originBundleId: "DEFAULT",
   fingerprintHash: null,
 };
 
@@ -25,6 +26,7 @@ const createBundleJson = (
   ...DEFAULT_BUNDLE,
   channel,
   id,
+  originBundleId: id,
   platform,
   targetAppVersion,
 });
@@ -32,6 +34,7 @@ const createBundleJson = (
 const bundlesData = [
   {
     id: "bundleX",
+    originBundleId: "bundleX",
     channel: "production",
     enabled: true,
     shouldForceUpdate: false,
@@ -45,6 +48,7 @@ const bundlesData = [
   },
   {
     id: "bundleY",
+    originBundleId: "bundleY",
     channel: "production",
     enabled: true,
     shouldForceUpdate: false,
@@ -58,6 +62,7 @@ const bundlesData = [
   },
   {
     id: "bundleZ",
+    originBundleId: "bundleZ",
     channel: "staging",
     enabled: true,
     shouldForceUpdate: false,
@@ -963,8 +968,16 @@ describe("blobDatabase plugin", () => {
 
   it("should keep update.json file when other bundles remain", async () => {
     // Setup - create bundles in same platform/channel
-    const bundle1 = { ...bundlesData[0], id: "bundleA" };
-    const bundle2 = { ...bundlesData[0], id: "bundleB" };
+    const bundle1 = {
+      ...bundlesData[0],
+      id: "bundleA",
+      originBundleId: "bundleA",
+    };
+    const bundle2 = {
+      ...bundlesData[0],
+      id: "bundleB",
+      originBundleId: "bundleB",
+    };
 
     await plugin.appendBundle(bundle1);
     await plugin.appendBundle(bundle2);
@@ -1012,9 +1025,21 @@ describe("blobDatabase plugin", () => {
 
   it("should sort remaining bundles after deletion", async () => {
     // Setup
-    const bundle1 = { ...bundlesData[0], id: "bundleA" };
-    const bundle2 = { ...bundlesData[0], id: "bundleB" };
-    const bundle3 = { ...bundlesData[0], id: "bundleC" };
+    const bundle1 = {
+      ...bundlesData[0],
+      id: "bundleA",
+      originBundleId: "bundleA",
+    };
+    const bundle2 = {
+      ...bundlesData[0],
+      id: "bundleB",
+      originBundleId: "bundleB",
+    };
+    const bundle3 = {
+      ...bundlesData[0],
+      id: "bundleC",
+      originBundleId: "bundleC",
+    };
 
     await plugin.appendBundle(bundle1);
     await plugin.appendBundle(bundle2);
@@ -1125,9 +1150,21 @@ describe("blobDatabase plugin", () => {
 
   it("should work with getBundles pagination", async () => {
     // Setup - create multiple bundles
-    const bundle1 = { ...bundlesData[0], id: "bundle1" };
-    const bundle2 = { ...bundlesData[0], id: "bundle2" };
-    const bundle3 = { ...bundlesData[0], id: "bundle3" };
+    const bundle1 = {
+      ...bundlesData[0],
+      id: "bundle1",
+      originBundleId: "bundle1",
+    };
+    const bundle2 = {
+      ...bundlesData[0],
+      id: "bundle2",
+      originBundleId: "bundle2",
+    };
+    const bundle3 = {
+      ...bundlesData[0],
+      id: "bundle3",
+      originBundleId: "bundle3",
+    };
 
     await plugin.appendBundle(bundle1);
     await plugin.appendBundle(bundle2);

@@ -56,13 +56,13 @@ const appVersionStrategy = async (
     FROM bundles b, input
     WHERE b.enabled = 1
       AND b.platform = input.app_platform
-      AND b.id >= input.bundle_id
-      AND b.id >= input.min_bundle_id
+      AND b.origin_bundle_id > input.bundle_id
+      AND b.origin_bundle_id >= input.min_bundle_id
       AND b.channel = input.channel
       AND b.target_app_version IN (${targetAppVersionList
         .map((version) => `'${version}'`)
         .join(",")})
-    ORDER BY b.id DESC
+    ORDER BY b.origin_bundle_id DESC
     LIMIT 1
   ),
   rollback_candidate AS (
@@ -76,9 +76,9 @@ const appVersionStrategy = async (
     FROM bundles b, input
     WHERE b.enabled = 1
       AND b.platform = input.app_platform
-      AND b.id < input.bundle_id
-      AND b.id >= input.min_bundle_id
-    ORDER BY b.id DESC
+      AND b.origin_bundle_id < input.bundle_id
+      AND b.origin_bundle_id >= input.min_bundle_id
+    ORDER BY b.origin_bundle_id DESC
     LIMIT 1
   ),
   final_result AS (
@@ -88,8 +88,7 @@ const appVersionStrategy = async (
     WHERE NOT EXISTS (SELECT 1 FROM update_candidate)
   )
   SELECT id, should_force_update, message, status, storage_uri, file_hash
-  FROM final_result, input
-  WHERE id <> bundle_id
+  FROM final_result
 
   UNION ALL
 
@@ -161,11 +160,11 @@ export const fingerprintStrategy = async (
     FROM bundles b, input
     WHERE b.enabled = 1
       AND b.platform = input.app_platform
-      AND b.id >= input.bundle_id
-      AND b.id >= input.min_bundle_id
+      AND b.origin_bundle_id > input.bundle_id
+      AND b.origin_bundle_id >= input.min_bundle_id
       AND b.channel = input.channel
       AND b.fingerprint_hash = input.fingerprint_hash
-    ORDER BY b.id DESC
+    ORDER BY b.origin_bundle_id DESC
     LIMIT 1
   ),
   rollback_candidate AS (
@@ -179,11 +178,11 @@ export const fingerprintStrategy = async (
     FROM bundles b, input
     WHERE b.enabled = 1
       AND b.platform = input.app_platform
-      AND b.id < input.bundle_id
-      AND b.id >= input.min_bundle_id
+      AND b.origin_bundle_id < input.bundle_id
+      AND b.origin_bundle_id >= input.min_bundle_id
       AND b.channel = input.channel
       AND b.fingerprint_hash = input.fingerprint_hash
-    ORDER BY b.id DESC
+    ORDER BY b.origin_bundle_id DESC
     LIMIT 1
   ),
   final_result AS (
@@ -193,8 +192,7 @@ export const fingerprintStrategy = async (
     WHERE NOT EXISTS (SELECT 1 FROM update_candidate)
   )
   SELECT id, should_force_update, message, status, storage_uri, file_hash
-  FROM final_result, input
-  WHERE id <> bundle_id
+  FROM final_result
 
   UNION ALL
 

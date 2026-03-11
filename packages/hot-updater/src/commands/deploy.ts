@@ -418,6 +418,7 @@ export const deploy = async (options: DeployOptions) => {
               targetAppVersion: target.appVersion,
               fingerprintHash: target.fingerprintHash,
               storageUri: taskRef.storageUri,
+              originBundleId: bundleId,
               metadata: {
                 ...(appVersion
                   ? {

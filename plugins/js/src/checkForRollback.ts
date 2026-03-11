@@ -13,9 +13,12 @@ export const checkForRollback = (
     return true;
   }
 
-  const enabled = bundles.find((item) => item.id === currentBundleId)?.enabled;
+  const enabled = bundles.find(
+    (item) => item.originBundleId === currentBundleId,
+  )?.enabled;
   const availableOldVersion = bundles.find(
-    (item) => item.id.localeCompare(currentBundleId) < 0 && item.enabled,
+    (item) =>
+      item.originBundleId.localeCompare(currentBundleId) < 0 && item.enabled,
   )?.enabled;
 
   if (isNullable(enabled)) {

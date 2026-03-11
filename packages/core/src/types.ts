@@ -65,6 +65,12 @@ export interface Bundle {
    * The metadata of the bundle.
    */
   metadata?: BundleMetadata;
+  /**
+   * The original bundle ID that owns the physical storage resource.
+   * For directly deployed bundles, this equals the bundle's own `id`.
+   * For copy-promoted bundles, this is propagated from the source bundle.
+   */
+  originBundleId: string;
 }
 
 type SnakeCase<S extends string> = S extends `${infer T}${infer U}`

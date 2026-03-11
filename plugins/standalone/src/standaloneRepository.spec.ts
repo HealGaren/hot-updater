@@ -36,6 +36,7 @@ const TEST_BUNDLE_1 = {
   targetAppVersion: "2.0.0",
   storageUri: "gs://test-bucket/test-key",
   fingerprintHash: null,
+  originBundleId: "bundle1",
 } as const;
 
 const TEST_BUNDLE_2 = {
@@ -50,6 +51,7 @@ const TEST_BUNDLE_2 = {
   targetAppVersion: "1.0.0",
   storageUri: "gs://test-bucket/test-key",
   fingerprintHash: null,
+  originBundleId: "bundle2",
 } as const;
 
 const TEST_BUNDLE_3 = {
@@ -64,6 +66,7 @@ const TEST_BUNDLE_3 = {
   targetAppVersion: "1.5.0",
   storageUri: "gs://test-bucket/test-key",
   fingerprintHash: null,
+  originBundleId: "bundle3",
 } as const;
 
 const testBundles: Bundle[] = [
@@ -76,6 +79,7 @@ const testBundles: Bundle[] = [
     channel: "production",
     storageUri: "gs://test-bucket/test-key",
     fingerprintHash: null,
+    originBundleId: "00000000-0000-0000-0000-000000000001",
   },
   TEST_BUNDLE_1,
   TEST_BUNDLE_2,
@@ -367,6 +371,7 @@ describe("Standalone Repository Plugin (Default Routes)", () => {
       channel: "production",
       storageUri: "gs://test-bucket/test-key",
       fingerprintHash: null,
+      originBundleId: "00000000-0000-0000-0000-000000000002",
     };
 
     await repo.appendBundle(newBundle);
@@ -607,6 +612,7 @@ describe("Standalone Repository Plugin (Default Routes)", () => {
           targetAppVersion: "*",
           storageUri: "gs://test-bucket/test-key",
           fingerprintHash: null,
+          originBundleId: `bundle-${index + 1}`,
         }),
       );
 

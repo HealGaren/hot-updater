@@ -32,6 +32,7 @@ const convertToBundle = (data: any): Bundle => ({
   gitCommitHash: data.git_commit_hash,
   fingerprintHash: data.fingerprint_hash,
   storageUri: data.storage_uri,
+  originBundleId: data.origin_bundle_id || data.id,
 });
 
 const makeResponse = (bundle: Bundle, status: UpdateStatus): UpdateInfo => ({
@@ -68,15 +69,21 @@ const fingerprintStrategy = async (
   }: FingerprintGetBundlesArgs,
 ): Promise<UpdateInfo | null> => {
   try {
-    let currentBundle: Bundle | null = null;
+    // Check if client's current bundle exists in the requested channel
     if (bundleId !== NIL_UUID) {
-      const doc = await db.collection("bundles").doc(bundleId).get();
-      if (doc.exists) {
-        const data = doc.data()!;
-        if (data.channel !== channel) {
-          return null;
+      const currentSnap = await db
+        .collection("bundles")
+        .where("origin_bundle_id", "==", bundleId)
+        .where("channel", "==", channel)
+        .limit(1)
+        .get();
+      if (currentSnap.empty) {
+        // Current bundle not found in this channel — may have been moved or deleted
+      } else {
+        const data = currentSnap.docs[0].data();
+        if (!data.enabled) {
+          // Current bundle is disabled — will fall through to rollback logic
         }
-        currentBundle = convertToBundle(data);
       }
     }
 
@@ -84,68 +91,80 @@ const fingerprintStrategy = async (
       return null;
     }
 
+    // Use origin_bundle_id for all ordering to treat copy-promoted bundles
+    // as bundles from their original build time
     const baseQuery = db
       .collection("bundles")
       .where("platform", "==", platform)
       .where("channel", "==", channel)
       .where("enabled", "==", true)
-      .where("id", ">=", minBundleId)
+      .where("origin_bundle_id", ">=", minBundleId)
       .where("fingerprint_hash", "==", fingerprintHash);
 
     let updateCandidate: Bundle | null = null;
     let rollbackCandidate: Bundle | null = null;
+    let currentBundle: Bundle | null = null;
 
     if (bundleId === NIL_UUID) {
-      const snap = await baseQuery.orderBy("id", "desc").limit(1).get();
+      const snap = await baseQuery
+        .orderBy("origin_bundle_id", "desc")
+        .limit(1)
+        .get();
       if (!snap.empty) {
-        const data = snap.docs[0].data();
-        updateCandidate = convertToBundle(data);
+        updateCandidate = convertToBundle(snap.docs[0].data());
       }
     } else {
+      // Find update candidate: origin_bundle_id > bundleId (strictly newer)
       const updateSnap = await baseQuery
-        .where("id", ">=", bundleId)
-        .orderBy("id", "desc")
+        .where("origin_bundle_id", ">", bundleId)
+        .orderBy("origin_bundle_id", "desc")
         .limit(1)
         .get();
       if (!updateSnap.empty) {
-        const data = updateSnap.docs[0].data();
-        updateCandidate = convertToBundle(data);
+        updateCandidate = convertToBundle(updateSnap.docs[0].data());
       }
 
+      // Check if current bundle exists in candidates
+      const currentSnap = await baseQuery
+        .where("origin_bundle_id", "==", bundleId)
+        .limit(1)
+        .get();
+      if (!currentSnap.empty) {
+        currentBundle = convertToBundle(currentSnap.docs[0].data());
+      }
+
+      // Find rollback candidate: origin_bundle_id < bundleId
       const rollbackSnap = await baseQuery
-        .where("id", "<", bundleId)
-        .orderBy("id", "desc")
+        .where("origin_bundle_id", "<", bundleId)
+        .orderBy("origin_bundle_id", "desc")
         .limit(1)
         .get();
       if (!rollbackSnap.empty) {
-        const data = rollbackSnap.docs[0].data();
-        rollbackCandidate = convertToBundle(data);
+        rollbackCandidate = convertToBundle(rollbackSnap.docs[0].data());
       }
     }
 
     if (bundleId === NIL_UUID) {
       return updateCandidate ? makeResponse(updateCandidate, "UPDATE") : null;
     }
-    if (updateCandidate && updateCandidate.id !== bundleId) {
+
+    if (currentBundle) {
+      // Current bundle exists and is enabled — check if there's a newer one
+      if (updateCandidate) {
+        return makeResponse(updateCandidate, "UPDATE");
+      }
+      return null;
+    }
+
+    // Current bundle not found in candidates
+    if (updateCandidate) {
       return makeResponse(updateCandidate, "UPDATE");
     }
-
-    if (updateCandidate && updateCandidate.id === bundleId) {
-      if (currentBundle?.enabled) {
-        return null;
-      }
-      return rollbackCandidate
-        ? makeResponse(rollbackCandidate, "ROLLBACK")
-        : INIT_BUNDLE_ROLLBACK_UPDATE_INFO;
+    if (rollbackCandidate) {
+      return makeResponse(rollbackCandidate, "ROLLBACK");
     }
 
-    if (!updateCandidate) {
-      if (rollbackCandidate) {
-        return makeResponse(rollbackCandidate, "ROLLBACK");
-      }
-      return bundleId === minBundleId ? null : INIT_BUNDLE_ROLLBACK_UPDATE_INFO;
-    }
-    return null;
+    return bundleId === minBundleId ? null : INIT_BUNDLE_ROLLBACK_UPDATE_INFO;
   } catch (error) {
     console.error("Error in getUpdateInfo:", error);
     throw error;
@@ -163,15 +182,16 @@ const appVersionStrategy = async (
   }: AppVersionGetBundlesArgs,
 ): Promise<UpdateInfo | null> => {
   try {
-    let currentBundle: Bundle | null = null;
+    // Check if client's current bundle exists in the requested channel
     if (bundleId !== NIL_UUID) {
-      const doc = await db.collection("bundles").doc(bundleId).get();
-      if (doc.exists) {
-        const data = doc.data()!;
-        if (data.channel !== channel) {
-          return null;
-        }
-        currentBundle = convertToBundle(data);
+      const currentSnap = await db
+        .collection("bundles")
+        .where("origin_bundle_id", "==", bundleId)
+        .where("channel", "==", channel)
+        .limit(1)
+        .get();
+      if (currentSnap.empty) {
+        // Current bundle not found in this channel
       }
     }
 
@@ -203,68 +223,80 @@ const appVersionStrategy = async (
       return bundleId === minBundleId ? null : INIT_BUNDLE_ROLLBACK_UPDATE_INFO;
     }
 
+    // Use origin_bundle_id for all ordering to treat copy-promoted bundles
+    // as bundles from their original build time
     const baseQuery = db
       .collection("bundles")
       .where("platform", "==", platform)
       .where("channel", "==", channel)
       .where("enabled", "==", true)
-      .where("id", ">=", minBundleId)
+      .where("origin_bundle_id", ">=", minBundleId)
       .where("target_app_version", "in", targetAppVersionList);
 
     let updateCandidate: Bundle | null = null;
     let rollbackCandidate: Bundle | null = null;
+    let currentBundle: Bundle | null = null;
 
     if (bundleId === NIL_UUID) {
-      const snap = await baseQuery.orderBy("id", "desc").limit(1).get();
+      const snap = await baseQuery
+        .orderBy("origin_bundle_id", "desc")
+        .limit(1)
+        .get();
       if (!snap.empty) {
-        const data = snap.docs[0].data();
-        updateCandidate = convertToBundle(data);
+        updateCandidate = convertToBundle(snap.docs[0].data());
       }
     } else {
+      // Find update candidate: origin_bundle_id > bundleId (strictly newer)
       const updateSnap = await baseQuery
-        .where("id", ">=", bundleId)
-        .orderBy("id", "desc")
+        .where("origin_bundle_id", ">", bundleId)
+        .orderBy("origin_bundle_id", "desc")
         .limit(1)
         .get();
       if (!updateSnap.empty) {
-        const data = updateSnap.docs[0].data();
-        updateCandidate = convertToBundle(data);
+        updateCandidate = convertToBundle(updateSnap.docs[0].data());
       }
 
+      // Check if current bundle exists in candidates
+      const currentSnap = await baseQuery
+        .where("origin_bundle_id", "==", bundleId)
+        .limit(1)
+        .get();
+      if (!currentSnap.empty) {
+        currentBundle = convertToBundle(currentSnap.docs[0].data());
+      }
+
+      // Find rollback candidate: origin_bundle_id < bundleId
       const rollbackSnap = await baseQuery
-        .where("id", "<", bundleId)
-        .orderBy("id", "desc")
+        .where("origin_bundle_id", "<", bundleId)
+        .orderBy("origin_bundle_id", "desc")
         .limit(1)
         .get();
       if (!rollbackSnap.empty) {
-        const data = rollbackSnap.docs[0].data();
-        rollbackCandidate = convertToBundle(data);
+        rollbackCandidate = convertToBundle(rollbackSnap.docs[0].data());
       }
     }
 
     if (bundleId === NIL_UUID) {
       return updateCandidate ? makeResponse(updateCandidate, "UPDATE") : null;
     }
-    if (updateCandidate && updateCandidate.id !== bundleId) {
+
+    if (currentBundle) {
+      // Current bundle exists and is enabled — check if there's a newer one
+      if (updateCandidate) {
+        return makeResponse(updateCandidate, "UPDATE");
+      }
+      return null;
+    }
+
+    // Current bundle not found in candidates
+    if (updateCandidate) {
       return makeResponse(updateCandidate, "UPDATE");
     }
-
-    if (updateCandidate && updateCandidate.id === bundleId) {
-      if (currentBundle?.enabled) {
-        return null;
-      }
-      return rollbackCandidate
-        ? makeResponse(rollbackCandidate, "ROLLBACK")
-        : INIT_BUNDLE_ROLLBACK_UPDATE_INFO;
+    if (rollbackCandidate) {
+      return makeResponse(rollbackCandidate, "ROLLBACK");
     }
 
-    if (!updateCandidate) {
-      if (rollbackCandidate) {
-        return makeResponse(rollbackCandidate, "ROLLBACK");
-      }
-      return bundleId === minBundleId ? null : INIT_BUNDLE_ROLLBACK_UPDATE_INFO;
-    }
-    return null;
+    return bundleId === minBundleId ? null : INIT_BUNDLE_ROLLBACK_UPDATE_INFO;
   } catch (error) {
     console.error("Error in getUpdateInfo:", error);
     throw error;
