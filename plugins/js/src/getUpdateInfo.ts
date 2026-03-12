@@ -9,6 +9,8 @@ import {
 } from "@hot-updater/core";
 import { semverSatisfies } from "./semverSatisfies";
 
+const getUUIDv7Timestamp = (uuid: string) => uuid.slice(0, 13);
+
 const INIT_BUNDLE_ROLLBACK_UPDATE_INFO: UpdateInfo = {
   message: null,
   id: NIL_UUID,
@@ -31,14 +33,28 @@ export const getUpdateInfo = async (
   bundles: Bundle[],
   args: GetBundlesArgs,
 ): Promise<UpdateInfo | null> => {
+  let result: UpdateInfo | null;
   switch (args._updateStrategy) {
     case "appVersion":
-      return appVersionStrategy(bundles, args);
+      result = await appVersionStrategy(bundles, args);
+      break;
     case "fingerprint":
-      return fingerprintStrategy(bundles, args);
+      result = await fingerprintStrategy(bundles, args);
+      break;
     default:
       return null;
   }
+
+  // Skip copy-promoted bundles (same UUIDv7 timestamp = same version)
+  if (
+    result &&
+    args.bundleId !== NIL_UUID &&
+    getUUIDv7Timestamp(result.id) === getUUIDv7Timestamp(args.bundleId)
+  ) {
+    return null;
+  }
+
+  return result;
 };
 
 const appVersionStrategy = async (

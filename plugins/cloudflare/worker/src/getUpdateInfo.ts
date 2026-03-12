@@ -8,6 +8,8 @@ import {
 } from "@hot-updater/core";
 import { filterCompatibleAppVersions } from "@hot-updater/js";
 
+const getUUIDv7Timestamp = (uuid: string) => uuid.slice(0, 13);
+
 const appVersionStrategy = async (
   DB: D1Database,
   {
@@ -120,6 +122,14 @@ const appVersionStrategy = async (
     return null;
   }
 
+  // Skip copy-promoted bundles (same UUIDv7 timestamp = same version)
+  if (
+    bundleId !== NIL_UUID &&
+    getUUIDv7Timestamp(result.id) === getUUIDv7Timestamp(bundleId)
+  ) {
+    return null;
+  }
+
   return {
     id: result.id,
     shouldForceUpdate: Boolean(result.should_force_update),
@@ -222,6 +232,13 @@ export const fingerprintStrategy = async (
     }>();
 
   if (!result) {
+    return null;
+  }
+
+  if (
+    bundleId !== NIL_UUID &&
+    getUUIDv7Timestamp(result.id) === getUUIDv7Timestamp(bundleId)
+  ) {
     return null;
   }
 

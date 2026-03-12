@@ -11,6 +11,8 @@ import type { Firestore } from "firebase-admin/firestore";
 
 const NIL_UUID = "00000000-0000-0000-0000-000000000000";
 
+const getUUIDv7Timestamp = (uuid: string) => uuid.slice(0, 13);
+
 const INIT_BUNDLE_ROLLBACK_UPDATE_INFO: UpdateInfo = {
   id: NIL_UUID,
   shouldForceUpdate: true,
@@ -47,14 +49,28 @@ export const getUpdateInfo = async (
   db: Firestore,
   args: GetBundlesArgs,
 ): Promise<UpdateInfo | null> => {
+  let result: UpdateInfo | null;
   switch (args._updateStrategy) {
     case "appVersion":
-      return appVersionStrategy(db, args);
+      result = await appVersionStrategy(db, args);
+      break;
     case "fingerprint":
-      return fingerprintStrategy(db, args);
+      result = await fingerprintStrategy(db, args);
+      break;
     default:
       return null;
   }
+
+  // Skip copy-promoted bundles (same UUIDv7 timestamp = same version)
+  if (
+    result &&
+    args.bundleId !== NIL_UUID &&
+    getUUIDv7Timestamp(result.id) === getUUIDv7Timestamp(args.bundleId)
+  ) {
+    return null;
+  }
+
+  return result;
 };
 
 const fingerprintStrategy = async (

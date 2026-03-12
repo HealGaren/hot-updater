@@ -275,13 +275,25 @@ export function createOrmDatabaseCore({
         return INIT_BUNDLE_ROLLBACK_UPDATE_INFO;
       };
 
+      const getTs = (uuid: string) => uuid.slice(0, 13);
+
+      let result: UpdateInfo | null = null;
       if (args._updateStrategy === "appVersion") {
-        return appVersionStrategy(args);
+        result = await appVersionStrategy(args);
+      } else if (args._updateStrategy === "fingerprint") {
+        result = await fingerprintStrategy(args);
       }
-      if (args._updateStrategy === "fingerprint") {
-        return fingerprintStrategy(args);
+
+      // Skip copy-promoted bundles (same UUIDv7 timestamp = same version)
+      if (
+        result &&
+        args.bundleId !== NIL_UUID &&
+        getTs(result.id) === getTs(args.bundleId)
+      ) {
+        return null;
       }
-      return null;
+
+      return result;
     },
 
     async getAppUpdateInfo(
